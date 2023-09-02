@@ -16,13 +16,11 @@ public class Bot extends TelegramLongPollingBot {
 
     boolean dobavitNovogoUsera = false;
 
-    Map<Long,String> baseUsers = new HashMap<>();
+    Map<Long, String> baseUsers = new HashMap<>();
 
     public Bot() {
         ReadOnWrite.loadBaseUsers("C:/userBasesMapa.txt", baseUsers);
     }
-
-
 
 
     @Override
@@ -37,12 +35,12 @@ public class Bot extends TelegramLongPollingBot {
 
 
     public void onUpdateReceived(Update update) {  //основной метод
-        System.out.println("555555555555555");
+
         if (update.hasMessage()) {
-            System.out.println("222222222");
+
 
             if (dobavitNovogoUsera) {
-                System.out.println("111111111");
+
                 dobavitNovogoUsera = false;
                 Message message = update.getMessage(); //@todo добавить лоику если уже кто то из активированых что то пришлет перед новым ползоватлем
                 Long chatId = message.getChatId(); // Получаем chat ID пользователя
@@ -86,8 +84,6 @@ public class Bot extends TelegramLongPollingBot {
                 }
 
 
-
-
                 // Пример вывода значения из хеш-карты:
                 System.out.println("User Info: " + baseUsers.get(chatId));
 
@@ -108,12 +104,11 @@ public class Bot extends TelegramLongPollingBot {
                 /////////////////////////////////////////////////////////////////////////////////////
 
 
-                System.out.println("333333333");
                 sendOk(chatId);
 
             } else {
                 sendError(update.getMessage().getChatId());
-                System.out.println("Попытка доступа при закрытой заслонке7 ");
+                System.out.println("Попытка доступа при закрытой заслонке ");
             }
 
             ////
@@ -123,9 +118,9 @@ public class Bot extends TelegramLongPollingBot {
             if (text.contains("Delates")) {
                 // @todo логика удаления пользователя
             } else if (text.equals("Vhodi")) {
-                System.out.println("Sdelalsy true");
+
                 dobavitNovogoUsera = true;
-            }else if(text.equals("S")){ // @todo Метод для отладки
+            } else if (text.equals("S")) { // @todo Метод для отладки
                 sendArrayDataToAll(new String[]{"data1", "data2", "data3"});
             }
 
@@ -134,15 +129,8 @@ public class Bot extends TelegramLongPollingBot {
     }
 
 
-
-
     // Метод для отправки массива строк пользователю
     private void sendArrayData(Long chatId, String[] dataArray) {
-        System.out.println("Delaetsya sendArrayData");
-
-
-        System.out.println("Sending data to chatId: " + chatId);
-        System.out.println("Data Array: " + Arrays.toString(dataArray));
 
         SendMessage sendMessage = new SendMessage();
         sendMessage.setText(String.join("\n", dataArray));
@@ -169,8 +157,6 @@ public class Bot extends TelegramLongPollingBot {
     }
 
 
-
-
     public void sendArrayDataToAll(String[] dataArray) {
         System.out.println("Delaetsya sendArrayDataToAll");
 
@@ -193,9 +179,9 @@ public class Bot extends TelegramLongPollingBot {
     }
 
 
-    public void sendOk(Long chatId){
+    public void sendOk(Long chatId) {
         SendMessage sendMessage = new SendMessage();
-        sendMessage.setText("Вы успешно подписаны на бота7");
+        sendMessage.setText("Вы успешно подписаны на бота");
         sendMessage.setChatId(chatId);
         try {
             executeAsync(sendMessage);
@@ -203,9 +189,10 @@ public class Bot extends TelegramLongPollingBot {
             e.printStackTrace();
         }
     }
-    public void sendError(Long chatId){
+
+    public void sendError(Long chatId) {
         SendMessage sendMessage = new SendMessage();
-        sendMessage.setText("Ошика доступа обратитесь к Администраторам @GOLDGAME77777 @BakharevDen7");
+        sendMessage.setText("Ошика доступа обратитесь к Администраторам @GOLDGAME77777 @BakharevDen");
         sendMessage.setChatId(chatId);
         try {
             executeAsync(sendMessage);
@@ -217,12 +204,3 @@ public class Bot extends TelegramLongPollingBot {
 }
 
 
-//    @Override
-//    public String getBotUsername() {
-//        return "mybottJavamybot_bot"; // Метод, который возвращает username бота.
-//    }
-//
-//    @Override
-//    public String getBotToken() {
-//        return "6650591421:AAHrT3OMJqM5cgxOxZ3nQ9-GKQUXPuPAMtY"; // Метод, который возвращает token бота.
-//    }
