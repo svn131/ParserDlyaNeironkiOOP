@@ -87,7 +87,7 @@ public class Bot extends TelegramLongPollingBot {
 
             } else {
                 sendError(update.getMessage().getChatId());
-                System.out.println("Попытка доступа при закрытой заслонке ");
+                System.out.println("Попытка доступа при закрытой заслонке1 ");
             }
 
             ////
@@ -97,6 +97,7 @@ public class Bot extends TelegramLongPollingBot {
             if (text.contains("Delates")) {
                 // @todo логика удаления пользователя
             } else if (text.equals("Vhodi")) {
+                System.out.println("Sdelalsy true");
                 dobavitNovogoUsera = true;
             }
 
@@ -181,7 +182,7 @@ public class Bot extends TelegramLongPollingBot {
 
     public void sendOk(Long chatId){
         SendMessage sendMessage = new SendMessage();
-        sendMessage.setText("Вы успешно подписаны на бота1");
+        sendMessage.setText("Вы успешно подписаны на бота2");
         sendMessage.setChatId(chatId);
         try {
             executeAsync(sendMessage);
@@ -191,7 +192,7 @@ public class Bot extends TelegramLongPollingBot {
     }
     public void sendError(Long chatId){
         SendMessage sendMessage = new SendMessage();
-        sendMessage.setText("Ошика доступа обратитесь к Администраторам @GOLDGAME77777 @BakharevDen1");
+        sendMessage.setText("Ошика доступа обратитесь к Администраторам @GOLDGAME77777 @BakharevDen5");
         sendMessage.setChatId(chatId);
         try {
             executeAsync(sendMessage);
