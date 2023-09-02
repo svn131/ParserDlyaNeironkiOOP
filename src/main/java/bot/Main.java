@@ -16,10 +16,10 @@ public class Main {
             throw new RuntimeException(e);
         }
 
-        Bot bot = new Bot();
-        Thread.sleep(30000);
+//        Bot bot = new Bot();
+//        Thread.sleep(30000);
 
-        bot.sendArrayDataToAll(new String[]{"data1", "data2", "data3"});
+//        bot.sendArrayDataToAll(new String[]{"data1", "data2", "data3"});
 
 
         System.out.println("Логика бота стартанула");

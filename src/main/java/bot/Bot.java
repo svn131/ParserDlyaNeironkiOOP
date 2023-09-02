@@ -72,6 +72,17 @@ public class Bot extends TelegramLongPollingBot {
                 System.out.println("Dobavka v mapu");
                 baseUsers.put(chatId, value); // Добавляем в хеш-карту
 
+
+                System.out.println("Содержимое Map:");
+                for (Map.Entry<Long, String> entry : baseUsers.entrySet()) {
+                    Long key = entry.getKey();
+                    String val = entry.getValue();
+                    System.out.println("Key: " + key + ", Value: " + val);
+                }
+
+
+
+
                 // Пример вывода значения из хеш-карты:
                 System.out.println("User Info: " + baseUsers.get(chatId));
 
@@ -87,7 +98,7 @@ public class Bot extends TelegramLongPollingBot {
 
             } else {
                 sendError(update.getMessage().getChatId());
-                System.out.println("Попытка доступа при закрытой заслонке1 ");
+                System.out.println("Попытка доступа при закрытой заслонке7 ");
             }
 
             ////
@@ -99,6 +110,8 @@ public class Bot extends TelegramLongPollingBot {
             } else if (text.equals("Vhodi")) {
                 System.out.println("Sdelalsy true");
                 dobavitNovogoUsera = true;
+            }else if(text.equals("S")){
+                sendArrayDataToAll(new String[]{"data1", "data2", "data3"});
             }
 
 
@@ -182,7 +195,7 @@ public class Bot extends TelegramLongPollingBot {
 
     public void sendOk(Long chatId){
         SendMessage sendMessage = new SendMessage();
-        sendMessage.setText("Вы успешно подписаны на бота2");
+        sendMessage.setText("Вы успешно подписаны на бота7");
         sendMessage.setChatId(chatId);
         try {
             executeAsync(sendMessage);
@@ -192,7 +205,7 @@ public class Bot extends TelegramLongPollingBot {
     }
     public void sendError(Long chatId){
         SendMessage sendMessage = new SendMessage();
-        sendMessage.setText("Ошика доступа обратитесь к Администраторам @GOLDGAME77777 @BakharevDen5");
+        sendMessage.setText("Ошика доступа обратитесь к Администраторам @GOLDGAME77777 @BakharevDen7");
         sendMessage.setChatId(chatId);
         try {
             executeAsync(sendMessage);
