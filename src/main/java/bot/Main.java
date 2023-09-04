@@ -21,8 +21,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.Random;
+import java.util.*;
 
 public class Main {
 
@@ -31,6 +30,18 @@ public class Main {
 
     static int totalObshyi = 25; // 30
     static int time = 300; // 300 это пять минут
+
+
+
+    // логика неповторений если на 3х минутах тотал совпал
+    static List<String> listTehktoBil = new ArrayList<>();
+
+    static int shethikPoGlavnomyCiclu = 0;
+    // логика неповторений если на 3х минутах тотал совпал
+
+    static List<String> resultat = new ArrayList<>();
+static int resulTime = 1500; // 15 минут
+
 static Bot bot = new Bot();
 
     public static void main(String[] args) throws IOException, InterruptedException {
@@ -101,12 +112,19 @@ static Bot bot = new Bot();
 
                 System.out.println("Hello world!");
 
-                int min = 60000;
-                int max = 100000;
+                int min = 10000;
+                int max = 30000;
 
                 Random random = new Random();
                 int randomNumber = random.nextInt(max - min + 1) + min;
 
+                // логика неповторений если на 3х минутах тотал совпал
+                shethikPoGlavnomyCiclu += randomNumber ;
+                if(shethikPoGlavnomyCiclu > 120000){
+                    listTehktoBil = new ArrayList<>(); // чистит лист повторений
+                    shethikPoGlavnomyCiclu = 0;
+                }
+                // логика неповторений если на 3х минутах тотал совпал
 
                 Thread.sleep(randomNumber);
 
@@ -197,6 +215,7 @@ static Bot bot = new Bot();
 
         public static void signal () throws InterruptedException {
             String[] signalArr = new String[6];
+            String[] resultArr = new String[5];
             for (int i = 3; temp[i] != null; i += 6) {
 
 
@@ -207,7 +226,7 @@ static Bot bot = new Bot();
 //            System.out.println(temp[i - 2]); //команда1
 //            System.out.println(temp[i - 3]); // время
 
-                if (Integer.parseInt(temp[i - 3]) < time && Integer.parseInt(temp[i]) + Integer.parseInt(temp[i]) > totalObshyi) {
+                if (Integer.parseInt(temp[i - 3]) < time && Integer.parseInt(temp[i]) + Integer.parseInt(temp[i]) > totalObshyi && !listTehktoBil.contains(temp[i - 2])) {
 
                     signalArr[0] = ("Команда 1 " + (temp[i - 2]));
                     signalArr[1] = ("Команда 2 " + (temp[i - 1]));
@@ -215,11 +234,42 @@ static Bot bot = new Bot();
                     signalArr[3] = (temp[i + 2]);
                     signalArr[4] = ("Счет  1ой " + (temp[i + 1]));
                     signalArr[5] = ("Счет 2ой " + (temp[i]));
+                    // логика неповторений если на 3х минутах тотал совпал - так же смотреть в иф выще
+                    listTehktoBil.add(temp[i - 2]);
+                    shethikPoGlavnomyCiclu = 0;
+                    // логика неповторений если на 3х минутах тотал совпал
 
+                    resultat.add(temp[i - 2]);
 
            bot.sendArrayDataToAll(signalArr);
 
            Thread.sleep(100);
+
+                // ниже логика вывода результата после 15 мин
+                } else if (Integer.parseInt(temp[i - 3]) > resulTime && resultat.contains(temp[i - 2]) ) {
+
+                    int total12 = Integer.parseInt(temp[i + 1]) + Integer.parseInt(temp[i]);
+                    if( total12 <= totalObshyi) { // от знака зависит ставка-результат - тотал больше или меньше - продумать при тотал с десятичой дробью
+
+                        resultArr[0] = ("Команда 1 " + (temp[i - 2]));
+                        resultArr[1] = ("Команда 2 " + (temp[i - 1]));
+                        resultArr[2] = ("Прошло время " + Integer.parseInt(temp[i - 3]) / 60 + " : " + Integer.parseInt(temp[i - 3]) % 60);
+                        resultArr[3] = ("Общий тотал " + total12);
+                        resultArr[4] = "ВЫИГРАЛА";
+
+                        bot.sendArrayDataToAll(resultArr);
+                        resultat.remove(temp[i - 2]);
+
+                    } else if (total12 > totalObshyi) {
+
+                        resultArr[0] = ("Команда 1 " + (temp[i - 2]));
+                        resultArr[1] = ("Команда 2 " + (temp[i - 1]));
+                        resultArr[2] = ("Прошло время " + Integer.parseInt(temp[i - 3]) / 60 + " : " + Integer.parseInt(temp[i - 3]) % 60);
+                        resultArr[3] = ("Общий тотал " + total12);
+                        resultArr[4] = "Проиграла";
+
+
+                    }
 
 
                 }
