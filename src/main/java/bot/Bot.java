@@ -16,7 +16,7 @@ public class Bot extends TelegramLongPollingBot {
 
     boolean dobavitNovogoUsera = false;
 
-    Map<Long, String> baseUsers = new HashMap<>();
+   static Map<Long, String> baseUsers = new HashMap<>();
 
     public Bot() {
         ReadOnWrite.loadBaseUsers("C:/userBasesMapa.txt", baseUsers);
@@ -47,7 +47,7 @@ public class Bot extends TelegramLongPollingBot {
                 // Дальше можно использовать chatId для отправки сообщения обратно пользователю или для других действий.
 
                 // Пример вывода chat ID в консоль:
-                System.out.println("Chat ID: " + chatId);
+//                System.out.println("Chat ID: " + chatId);
 
                 User user = message.getFrom();
                 String username = user.getUserName(); // Получаем юзернейм пользователя
@@ -130,7 +130,7 @@ public class Bot extends TelegramLongPollingBot {
 
 
     // Метод для отправки массива строк пользователю
-    private void sendArrayData(Long chatId, String[] dataArray) {
+    private  void sendArrayData(Long chatId, String[] dataArray) {
 
         SendMessage sendMessage = new SendMessage();
         sendMessage.setText(String.join("\n", dataArray));
@@ -140,7 +140,7 @@ public class Bot extends TelegramLongPollingBot {
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
-        System.out.println("Data sent successfully to chatId: " + chatId);
+//        System.out.println("Data sent successfully to chatId: " + chatId);
     }
 
 
@@ -157,23 +157,23 @@ public class Bot extends TelegramLongPollingBot {
     }
 
 
-    public void sendArrayDataToAll(String[] dataArray) {
-        System.out.println("Delaetsya sendArrayDataToAll");
+    public  void sendArrayDataToAll(String[] dataArray) {
+//        System.out.println("Delaetsya sendArrayDataToAll");
 
         List<Long> allowedChatIds = getAllowedChatIds(); // Получаем список разрешенных chatId
 
-        System.out.println("Allowed chatIds: " + allowedChatIds);
+//        System.out.println("Allowed chatIds: " + allowedChatIds);
 
         for (Long chatId : allowedChatIds) {
-            System.out.println("Sending data to chatId: " + chatId);
+//            System.out.println("Sending data to chatId: " + chatId);
             sendArrayData(chatId, dataArray); // Отправляем массив строк каждому пользователю по chatId
         }
     }
 
 
     // Метод для получения списка всех разрешенных chatId
-    private List<Long> getAllowedChatIds() {
-        System.out.println("getAllowedChatIds");
+    private static List<Long> getAllowedChatIds() {
+//        System.out.println("getAllowedChatIds");
         List<Long> allowedChatIds = new ArrayList<>(baseUsers.keySet());
         return allowedChatIds;
     }

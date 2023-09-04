@@ -39,9 +39,18 @@ public class ReadOnWrite {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 String[] parts = line.split(" ", 2);
-                Long chatId = Long.parseLong(parts[0].trim());
-                String value = parts[1].trim();
-                baseUsers.put(chatId, value);
+                if (parts.length != 2) {
+                    // Неверный формат строки, пропускаем ее
+                    continue;
+                }
+                try {
+                    Long chatId = Long.parseLong(parts[0].trim());
+                    String value = parts[1].trim();
+                    baseUsers.put(chatId, value);
+                } catch (NumberFormatException e) {
+                    // Неверный формат номера чата, пропускаем строку
+                    continue;
+                }
             }
 
         } catch (IOException e) {
@@ -50,6 +59,8 @@ public class ReadOnWrite {
         }
     }
 
-}
+    }
+
+
 
 
