@@ -19,7 +19,8 @@ import java.util.*;
 
 public class Main {
 
-    Double balance = 0.0;
+   static Double balance = 10000.0;
+  static   int naOdnuIgru = 1000;
 
     static String[] temp = new String[200];
     static int cursorTemp = 0;
@@ -193,6 +194,8 @@ public class Main {
                     bot.sendArrayDataToAll(resultArr);
                     resultat.remove(temp[i]);
 
+                    balance -= naOdnuIgru + stavka(Double.parseDouble(temp[i + 5]),Double.parseDouble(temp[i + 6]),total12,naOdnuIgru); // рачет финансов
+
                 } else if (total12 > totalObshyi) {
                     System.out.println("---------------------------------------------------------------11000000000");
                     resultArr[0] = ("Команда 1 " + (temp[i]));
@@ -203,6 +206,8 @@ public class Main {
 
                     bot.sendArrayDataToAll(resultArr);
                     resultat.remove(temp[i]);
+
+                    balance -= naOdnuIgru + stavka(Double.parseDouble(temp[i + 5]),Double.parseDouble(temp[i + 6]),total12,naOdnuIgru); // рачет финансов
 
                 }
 
@@ -270,6 +275,10 @@ public class Main {
                             }
                         }
                     }
+                    else {
+                        values.add("0");
+                        values.add("0"); // моя логика - проверить
+                    }
                 }
 
                 allValues.add(values);
@@ -277,6 +286,16 @@ public class Main {
         }
 
         return allValues;
+    }
+
+    public static Double stavka (Double kef, Double total, int total12, int naOdnuIgru){
+       if (total12 < total ) {
+           return naOdnuIgru * kef;
+       }
+        else{
+            return  0.0;
+       }
+
     }
 
 
