@@ -17,7 +17,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.*;
-
+import java.util.function.DoubleToIntFunction;
 
 
 //@todo доработь кефсредний допустим 1.8 тотал хороший 55  - значит мы делаем выше 5 минут и тотал умножить на кефф >= 99 - это наше число кторое задам как сейчас общий тотал - потому что букмекер может игграть что тоталом то кефом. А так же добавить наше число 55+(текущее время-300наша планка)/60*11 а затем также умножить на 1.8    --> меньше или равно результато тотала на ставку
@@ -77,6 +77,8 @@ public class Main {
 
         while (true) {
             try {
+
+                System.out.println("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF "+ obrabotkaSsylok.getSsilka() );
 //                URL obj = new URL(url+"subGames="+ssilka+queryString);
 //                URL obj = new URL("https://1xstavka.ru/LiveFeed/Get1x2_VZip?sports=3&count=50&antisports=188&mode=4&subGames=474717883%2C474717897%2C474720336%2C474720779%2C474722592&country=1&partner=51&getEmpty=true&noFilterBlockEvent=true");
                 URL obj = new URL("https://1xstavka.ru/LiveFeed/Get1x2_VZip?sports=3&count=50&antisports=188&mode=4&country=1&partner=51&getEmpty=true&noFilterBlockEvent=true");
@@ -248,10 +250,12 @@ public class Main {
                 }
 
                 allValues.add(values);
+//                String ts = scObject.optString("TS", "0"); убрать черновик
 
-
-                JSONObject iObject = gameObj.optJSONObject("I");
-                String ssilka = iObject.optString("value");
+//                JSONObject iObject = scObject.optJSONObject("I");
+              String ssilka = String.valueOf(gameObj.getInt("I")) ;  // @todo поменять логикметодов на интеджер для большей читаемости ипроизводительности
+//                String ssilka = (iObject != null) ? iObject.optString("I") : null;
+//                String ssilka = iObject.optString("value");
                 obrabotkaSsylok.podgotovkaUrl(ssilka);
             }
         }
@@ -378,7 +382,8 @@ public class Main {
                 }
             }
         } catch (JSONException e) {
-            e.printStackTrace();
+//            e.printStackTrace(); выводит непрятные на екране ошибки когда нету в ответе каких либо джейсонов
+            System.out.println("В метода extractEArray2 не оказалось чегото из SG , E ,C , G, T, P");
         }
     }
 

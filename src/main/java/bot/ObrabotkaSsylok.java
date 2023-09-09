@@ -20,6 +20,14 @@ public  class ObrabotkaSsylok {
 
     public  void podgotovkaUrl(String ssilka){
 
+        System.out.println("Пришла ссылка " + ssilka);
+
+        if (ssilka == null) {
+            System.out.println("Ссылка нулл");
+            return;
+        }
+
+
         if(ssilkaMap.containsKey(ssilka) && System.currentTimeMillis() - ssilkaMap.get(ssilka)  > 600000){ // закоменченны йметод ниже тоже самое выполняет - что бы понять суть читать можно его
 
             ssilkaMap.remove(ssilka);
@@ -42,7 +50,7 @@ public  class ObrabotkaSsylok {
             arrSlighenya[cursor] = ssilka; // и в массив слежения
             cursor++;
 
-            if(cursor > otladkaNaskolkoMasiv -2 ){ // при заплненноси масива на 998 - начинаем затирать тарые значения новыми с 0 индекса начиная
+            if(cursor > otladkaNaskolkoMasiv -2 ){ // при заплненности масива на 998 - начинаем затирать тарые значения новыми с 0 индекса начиная
                 cursor = 0;
             }
 
@@ -53,9 +61,10 @@ public  class ObrabotkaSsylok {
 
     }
 
-    public boolean custumArrContains(String s){ // роверяем еть ли такая ссылка в масиве слежения
+    public boolean custumArrContains(String s){ // проверяем есть ли такая ссылка в массиве слежения
         for (String ss :arrSlighenya){
-            if ( ss.equals(s)) {
+//            if (ss.equals(s)) {  // доложно же работать ??????????????????????????? Ведь выше прверка на нулл
+            if ( ss != null && ss.equals(s)) {
               return true;
             }
         }
@@ -71,10 +80,10 @@ public  class ObrabotkaSsylok {
                 iterator = ssilkaMap.keySet().iterator();
             }
             return iterator.next();
-        } catch (NoSuchElementException e) {
+        } catch (NullPointerException e) {
             // Обработка исключения или выброс другого исключения,
             // если требуется особая логика
-            return ""; // или любое другое значение по вашему выбору
+            return "@@"; // или любое другое значение по вашему выбору // если мапа пуста будет возвращться это - допустим кончились все игры на 15 минут и надо парсить вообще будет ли еще https://1xstavka.ru/LiveFeed/Get1x2_VZip?sports=3&count=50&antisports=188&mode=4&country=1&partner=51&getEmpty=true&noFilterBlockEvent=true
         }
 
 
