@@ -45,7 +45,7 @@
             <artifactId>jansi</artifactId>
             <version>1.18</version>
         </dependency>
-<!----> это для разнацветного вывода в консоль
+<!-- это для разнацветного вывода в консоль-->
 
     </dependencies>
 </project>
