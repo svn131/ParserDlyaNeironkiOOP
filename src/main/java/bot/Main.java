@@ -27,10 +27,9 @@ public class Main {
 
     static ObrabotkaSsylok obrabotkaSsylok = new ObrabotkaSsylok();
 
-   static Double balance = 10000.0;
-  static   int naOdnuIgru = 1000;
+    static Double balance = 10000.0;
+    static int naOdnuIgru = 1000;
 
-  static String ssilka = "?";
 
     static String[] temp = new String[300]; // 200
     static int cursorTemp = 0;
@@ -40,9 +39,7 @@ public class Main {
     static int time = 300; // 300 это пять минут
 
 
-
     static Map<Integer, Double[]> mapaCefov = new HashMap<Integer, Double[]>();
-
 
 
     // логика неповторений если на 3х минутах тотал совпал
@@ -51,8 +48,9 @@ public class Main {
     static int shethikPoGlavnomyCiclu = 0; // переделать с дата тайм
     // логика неповторений если на 3х минутах тотал совпал
 
-    static List<String> resultat = new ArrayList<>();
-    static int resulTime = 1500; // 15 минут проверка результата ставки
+    static List<String> resultat = new ArrayList<>();  //
+//    static int resulTime = 1500; // 15 минут проверка результата ставки
+    static int resulTime = 500; // 15 минут проверка результата ставки время в сек.
 
     static Bot bot = new Bot();
 
@@ -68,7 +66,7 @@ public class Main {
         System.out.println("Логика бота стартанула");
 
 
-        String url = "https://1xstavka.ru/LiveFeed/Get1x2_VZip";
+        String url = "https://1xstavka.ru/LiveFeed/Get1x2_VZip?sports=3&count=50&antisports=188&mode=4";
 
 //        String url = "https://1xstavka.ru/LiveFeed/Get1x2_VZip?sports=3&count=50&antisports=188&mode=4&";
         String queryString = "&country=1&partner=51&getEmpty=true&noFilterBlockEvent=true";
@@ -78,11 +76,11 @@ public class Main {
         while (true) {
             try {
 
-                System.out.println("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF "+ obrabotkaSsylok.getSsilka() );
+//                System.out.println("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF "+ obrabotkaSsylok.getSsilka() );
 //                URL obj = new URL(url+"subGames="+ssilka+queryString);
 //                URL obj = new URL("https://1xstavka.ru/LiveFeed/Get1x2_VZip?sports=3&count=50&antisports=188&mode=4&subGames=474717883%2C474717897%2C474720336%2C474720779%2C474722592&country=1&partner=51&getEmpty=true&noFilterBlockEvent=true");
-                URL obj = new URL("https://1xstavka.ru/LiveFeed/Get1x2_VZip?sports=3&count=50&antisports=188&mode=4&country=1&partner=51&getEmpty=true&noFilterBlockEvent=true");
-//                URL obj = new URL(url + "?" + queryString);
+//                URL obj = new URL("https://1xstavka.ru/LiveFeed/Get1x2_VZip?sports=3&count=50&antisports=188&mode=4&country=1&partner=51&getEmpty=true&noFilterBlockEvent=true");
+                URL obj = new URL(url + obrabotkaSsylok.getSsilka() + queryString);
                 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
                 // Set request method and headers
@@ -119,7 +117,6 @@ public class Main {
                         }
 
 
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -141,8 +138,8 @@ public class Main {
 
             System.out.println("Hello world!");
 
-            int min = 10000;
-            int max = 30000;
+            int min = 5000;
+            int max = 10000;
 
             Random random = new Random();
             int randomNumber = random.nextInt(max - min + 1) + min;
@@ -150,7 +147,7 @@ public class Main {
 
             // логика неповторений если на 3х минутах тотал совпал
             shethikPoGlavnomyCiclu += randomNumber;
-            if (shethikPoGlavnomyCiclu > 120000) {
+            if (shethikPoGlavnomyCiclu > 120000) { // через 2 минуты
                 listTehktoBil = new ArrayList<>(); // чистит лист повторений
                 shethikPoGlavnomyCiclu = 0;
             }
@@ -162,13 +159,9 @@ public class Main {
             cursorTemp = 0;
 
 
-            System.out.println(ssilka + "ссылка");
+
         }
     }
-
-
-
-
 
 
     public static List<List<String>> processJson(JSONObject jsonObject) {
@@ -189,7 +182,6 @@ public class Main {
                 values.add(o2);
 
                 JSONObject scObject = gameObj.optJSONObject("SC");
-
 
 
                 if (scObject != null) {
@@ -215,9 +207,6 @@ public class Main {
                         }
 
 
-
-
-
                     }
 
                     String ts = scObject.optString("TS", "0");
@@ -232,10 +221,6 @@ public class Main {
                     }
 
 
-
-
-
-
                     System.out.println(gameObj.toString());
 
                     System.out.println("V=================================================");
@@ -245,15 +230,14 @@ public class Main {
                     extractEArray2(gameObj);
 
 
-
-
                 }
 
                 allValues.add(values);
 //                String ts = scObject.optString("TS", "0"); убрать черновик
 
 //                JSONObject iObject = scObject.optJSONObject("I");
-              String ssilka = String.valueOf(gameObj.getInt("I")) ;  // @todo поменять логикметодов на интеджер для большей читаемости ипроизводительности
+//              String ssilka = String.valueOf(gameObj.getInt("I")) ;  // @todo поменять логикметодов на интеджер для большей читаемости ипроизводительности
+                Integer ssilka = gameObj.getInt("I");  //
 //                String ssilka = (iObject != null) ? iObject.optString("I") : null;
 //                String ssilka = iObject.optString("value");
                 obrabotkaSsylok.podgotovkaUrl(ssilka);
@@ -264,23 +248,19 @@ public class Main {
     }
 
 
-
-    public static Double stavka (Double kef, Double total, int total12, int naOdnuIgru){
-       if (total12 < total ) {
-           return naOdnuIgru * kef;
-       }
-        else{
-            return  0.0;
-       }
+    public static Double stavka(Double kef, Double total, int total12, int naOdnuIgru) {
+        if (total12 < total) {
+            return naOdnuIgru * kef;
+        } else {
+            return 0.0;
+        }
 
     }
 
     public static int extractPCObject(JSONObject json) {
 
 
-        int seriinikIgry = json.getJSONArray("O2IS").optInt(0,0); // @todo проверить чтобы не было исключений
-
-
+        int seriinikIgry = json.getJSONArray("O2IS").optInt(0, 0); // @todo проверить чтобы не было исключений
 
 
 //        try {
@@ -328,8 +308,9 @@ public class Main {
 
         return seriinikIgry;
     }
+
     public static void extractEArray2(JSONObject json) {
-        int seriinikIgry = json.getJSONArray("O2IS").optInt(0,0);
+        int seriinikIgry = json.getJSONArray("O2IS").optInt(0, 0);
 
         try {
             JSONArray sgArray = json.getJSONArray("SG");
@@ -359,7 +340,6 @@ public class Main {
                         System.out.println("P: " + p);
 
 
-
                         for (Map.Entry<Integer, Double[]> entry : mapaCefov.entrySet()) {
 
                             Integer key = entry.getKey();
@@ -370,10 +350,9 @@ public class Main {
                         System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 
 
+                        Double temp[] = {p, c}; // тотал кеф
 
-                        Double temp[] = {p,c}; // тотал кеф
-
-                        mapaCefov.put(seriinikIgry,temp);
+                        mapaCefov.put(seriinikIgry, temp);
 
                         System.out.println("---------------------------");
 
@@ -388,14 +367,10 @@ public class Main {
     }
 
 
-
-
     public static void signal() throws InterruptedException {
         String[] signalArr = new String[7];
         String[] resultArr = new String[7];
         for (int i = 0; temp[i] != null; i += 6) {
-
-
 
 
             if (Integer.parseInt(temp[i + 2]) < time && Integer.parseInt(temp[i + 3]) + Integer.parseInt(temp[i + 4]) > totalObshyi && !listTehktoBil.contains(temp[i])) {
@@ -407,18 +382,11 @@ public class Main {
                 signalArr[4] = ("Счет 2ой " + (temp[i + 4]));
 
 
-
-
                 Double[] cefIstvkaarr = mapaCefov.get(Integer.parseInt(temp[i + 5]));
                 System.out.println("Серийник запрос" + temp[i + 5]);
 
 
-
-
-
-
-
-                if (cefIstvkaarr!=null) { //  страння ошибка больще чм один если убрать
+                if (cefIstvkaarr != null) { //  страння ошибка больще чм один если убрать
                     System.out.println("zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz");
                     System.out.println("Серйник " + temp[i + 5]);
                     signalArr[5] = ("Коффцент тм тотал " + cefIstvkaarr[0]);
@@ -455,7 +423,7 @@ public class Main {
                     bot.sendArrayDataToAll(resultArr);
                     resultat.remove(temp[i]);
 
-                    balance -= naOdnuIgru + stavka(Double.parseDouble(temp[i + 5]),Double.parseDouble(temp[i + 6]),total12,naOdnuIgru); // рачет финансов
+                    balance -= naOdnuIgru + stavka(Double.parseDouble(temp[i + 5]), Double.parseDouble(temp[i + 6]), total12, naOdnuIgru); // рачет финансов
                     System.out.println(balance);
 
 
@@ -472,16 +440,13 @@ public class Main {
 
 
 //                    balance -= naOdnuIgru + stavka(Double.parseDouble(temp[i + 5]),Double.parseDouble(temp[i + 6]),total12,naOdnuIgru); // рачет финансов
-                    System.out.println("Баланс "+ balance);
+                    System.out.println("Баланс " + balance);
                 }
 
 
             }
         }
     }
-
-
-
 
 
 }

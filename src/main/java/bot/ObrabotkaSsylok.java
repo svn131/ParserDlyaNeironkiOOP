@@ -10,15 +10,15 @@ public  class ObrabotkaSsylok {
 
     int otladkaNaskolkoMasiv = 1000;
 
-    ConcurrentMap<String,Long> ssilkaMap = new ConcurrentHashMap<>();
+    ConcurrentMap<Integer,Long> ssilkaMap = new ConcurrentHashMap<>();
 //    Map<String,Long> ssilkaMap = new HashMap<>();
-    String[] arrSlighenya = new String[otladkaNaskolkoMasiv]; // своего роде пропуск только один разх добавить в хешь мапу ссылку строка 31
+    Integer[] arrSlighenya = new Integer[otladkaNaskolkoMasiv]; // своего роде пропуск только один разх добавить в хешь мапу ссылку строка 31
 //    List<String> arrSlighenya = new ArrayList<>();
     int cursor = 0;
 
-   Iterator<String> iterator;
+   Iterator<Integer> iterator;
 
-    public  void podgotovkaUrl(String ssilka){
+    public  void podgotovkaUrl(Integer ssilka){
 
         System.out.println("Пришла ссылка " + ssilka);
 
@@ -27,6 +27,7 @@ public  class ObrabotkaSsylok {
             return;
         }
 
+//        if(ssilkaMap.containsKey(ssilka) && System.currentTimeMillis() - ssilkaMap.get(ssilka)  > 4000){ // 2000 для теста - спустя это время старые ссылки не должны выводитя вновь
 
         if(ssilkaMap.containsKey(ssilka) && System.currentTimeMillis() - ssilkaMap.get(ssilka)  > 600000){ // закоменченны йметод ниже тоже самое выполняет - что бы понять суть читать можно его
 
@@ -61,9 +62,9 @@ public  class ObrabotkaSsylok {
 
     }
 
-    public boolean custumArrContains(String s){ // проверяем есть ли такая ссылка в массиве слежения
-        for (String ss :arrSlighenya){
-//            if (ss.equals(s)) {  // доложно же работать ??????????????????????????? Ведь выше прверка на нулл
+    public boolean custumArrContains(Integer s){ // проверяем есть ли такая ссылка в массиве слежения
+        for (Integer ss :arrSlighenya){
+//            if (ss.equals(s)) {  // доложно же работать ?????????? Не должно так как арр слежения пи первом обращении нулл
             if ( ss != null && ss.equals(s)) {
               return true;
             }
@@ -79,11 +80,18 @@ public  class ObrabotkaSsylok {
             if (!iterator.hasNext()) {
                 iterator = ssilkaMap.keySet().iterator();
             }
-            return iterator.next();
+
+            return "&subGames="+String.valueOf(iterator.next());
+
         } catch (NullPointerException e) {
+
+            iterator = ssilkaMap.keySet().iterator(); // создасться когда у нс первый запуск. Или очень просто большой и мапа стала пуста
             // Обработка исключения или выброс другого исключения,
             // если требуется особая логика
-            return "@@"; // или любое другое значение по вашему выбору // если мапа пуста будет возвращться это - допустим кончились все игры на 15 минут и надо парсить вообще будет ли еще https://1xstavka.ru/LiveFeed/Get1x2_VZip?sports=3&count=50&antisports=188&mode=4&country=1&partner=51&getEmpty=true&noFilterBlockEvent=true
+            return ""; // или любое другое значение по вашему выбору // если мапа пуста будет возвращться это - допустим кончились все игры на 15 минут и надо парсить вообще будет ли еще https://1xstavka.ru/LiveFeed/Get1x2_VZip?sports=3&count=50&antisports=188&mode=4&country=1&partner=51&getEmpty=true&noFilterBlockEvent=true
+        } catch (NoSuchElementException e){
+            System.out.println("При инициализации итератора в ифе мапа оказалась пуста - игры не идут ?");
+            return "";
         }
 
 
@@ -91,5 +99,9 @@ public  class ObrabotkaSsylok {
 
     }
 
+    public void logikaOchistkiSnytuhforMaghorno(){
 
+    }
+
+//@todo добавить логику очистки ссылок если игра остановилась -ее убрали ранее нашего времеени - сняли с турнира- и более не прилитает ее значение - такие нужно просто вызывать прверку раз в 10 условно минут - нашей мапы на нличие таких вещей.
 }
