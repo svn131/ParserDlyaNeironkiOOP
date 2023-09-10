@@ -10,10 +10,10 @@ public  class ObrabotkaSsylok {
 
     int otladkaNaskolkoMasiv = 1000;
 
-    ConcurrentMap<Integer,Long> ssilkaMap = new ConcurrentHashMap<>();
-//    Map<String,Long> ssilkaMap = new HashMap<>();
+    ConcurrentMap<Integer,Long> ssilkaMap = new ConcurrentHashMap<>(); //@todo загадать загадку
+
     Integer[] arrSlighenya = new Integer[otladkaNaskolkoMasiv]; // своего роде пропуск только один разх добавить в хешь мапу ссылку строка 31
-//    List<String> arrSlighenya = new ArrayList<>();
+
     int cursor = 0;
 
    Iterator<Integer> iterator;

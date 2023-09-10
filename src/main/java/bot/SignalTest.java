@@ -6,6 +6,8 @@ import java.util.*;
 
 public class SignalTest {
 
+
+
     static Map<String, double[]> mapFixedStavka = new HashMap<>(); // @todo загадать загадку
 
 
@@ -36,6 +38,7 @@ public class SignalTest {
     static Bot bot = new Bot();
 
     public static void main(String[] args) throws InterruptedException {
+
 
         temp[0] = "Атлетико Темперли";
         temp[1] = "Ставочка";
@@ -88,7 +91,7 @@ public class SignalTest {
     }
 //@todo добавить мапу логику что бы замена шла только на цифры а не на всякие "" - а что если на 15ой минуте уже совсем другие цифры ?
 
-    public static void signal() throws InterruptedException {
+    public static  void signal() throws InterruptedException {
 
         for (int i = 0; temp[i] != null; i += 6) {
 
@@ -184,3 +187,7 @@ public class SignalTest {
 
 
 }
+
+
+
+
