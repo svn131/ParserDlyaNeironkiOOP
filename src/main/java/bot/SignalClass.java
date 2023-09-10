@@ -11,7 +11,7 @@ public class SignalClass {
 
 
 
-        public void signalStavki(String[] temp, int i, double[] cefIstvkaarr,Map<String, double[]> mapFixedStavka) throws InterruptedException {
+        public void signalStavki(String[] temp, int i, double[] cefIstvkaarr,Map<String, double[]> mapFixedStavka, Bot bot) throws InterruptedException {
 
             String[] signalArr = new String[7]; // переменная чисто для конкотинации доп слов
 
@@ -25,8 +25,8 @@ public class SignalClass {
 
             System.out.println("zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz");
             System.out.println("Серйник " + temp[i + 5]);
-            signalArr[5] = ("Коффцент тм тотал " + cefIstvkaarr[0]);
-            signalArr[6] = ("Ставка тотал м " + cefIstvkaarr[1]);
+            signalArr[5] = ("Коффцент тм тотал " + cefIstvkaarr[1]);
+            signalArr[6] = ("Ставка тотал м " + cefIstvkaarr[0]);
 
 
             mapFixedStavka.put(temp[i + 5], new double[]{cefIstvkaarr[0], cefIstvkaarr[1]});//@todo если буду ошибки переделать на имя первой команды - а ейчас идентиться по серийнику
@@ -34,21 +34,21 @@ public class SignalClass {
 
             System.out.println("Добавлен в результат " + temp[i + 5]);
 
-//                bot.sendArrayDataToAll(signalArr);
+                bot.sendArrayDataToAll(signalArr);
 
-            System.out.println("SIGNAL " + Arrays.toString(signalArr));
+//            System.out.println("SIGNAL " + Arrays.toString(signalArr)); для теста -вывод в кнсоль
 
             Thread.sleep(100);
         }
 
-        public void signalResulta(String[] temp, int i, Map<String, double[]> mapFixedStavka,double balance,int naOdnuIgru) {
+        public void signalResulta(String[] temp, int i, Map<String, double[]> mapFixedStavka,double balance,int naOdnuIgru, Bot bot) {
 
-            String[] resultArr = new String[5];
+            String[] resultArr = new String[6];
 
             int total12 = Integer.parseInt(temp[i + 3]) + Integer.parseInt(temp[i + 4]);
 
-            double kefTM = mapFixedStavka.get(temp[i + 5])[0];
-            double stavkaTM = mapFixedStavka.get(temp[i + 5])[1];  // получаем из мапы значения
+            double kefTM = mapFixedStavka.get(temp[i + 5])[1];
+            double stavkaTM = mapFixedStavka.get(temp[i + 5])[0];  // получаем из мапы значения
 
 
             System.out.println("---------------------------------------------------------------9000000000");
@@ -60,13 +60,18 @@ public class SignalClass {
             resultArr[3] = ("Общий тотал " + total12);
             resultArr[4] = total12 <= stavkaTM ? "ВЫИГРАЛА" : "Проиграла";
 
-//                    bot.sendArrayDataToAll(resultArr);
-            System.out.println("SIGNAL RESULT " + Arrays.toString(resultArr));
+                   // для теста -вывод в консоль
+//            System.out.println("SIGNAL RESULT " + Arrays.toString(resultArr));
 
             balance = balance - naOdnuIgru + stavka(kefTM, stavkaTM, total12, naOdnuIgru); // рачет финансов
-            System.out.println(Ansi.ansi().fg(Ansi.Color.YELLOW).a("Баланс").reset() + " " + balance);
 
-            mapFixedStavka.remove(temp[i]); // чистим лист после проверки резуьтата
+            resultArr[5] = ("Баланс " + balance);
+
+            bot.sendArrayDataToAll(resultArr); // dslfxf cbuyfkf
+
+            System.out.println(Ansi.ansi().fg(Ansi.Color.YELLOW).a("Баланс").reset() + " " + balance); // для тестов вывод в консоль Желтым
+
+            mapFixedStavka.remove(temp[i+5]); // чистим лист после проверки резуьтата
 
 
         }

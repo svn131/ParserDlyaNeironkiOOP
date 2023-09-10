@@ -80,8 +80,10 @@ public  class ObrabotkaSsylok {
             if (!iterator.hasNext()) {
                 iterator = ssilkaMap.keySet().iterator();
             }
-
-            return "&subGames="+String.valueOf(iterator.next());
+String s = "&subGames="+String.valueOf(iterator.next());
+            System.out.println("Выданна ссылка " + s);
+            return s;
+//            return "&subGames="+String.valueOf(iterator.next()); //@todo лучший вариант - выше просто для вывода для тестов
 
         } catch (NullPointerException e) {
 
