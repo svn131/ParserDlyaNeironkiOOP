@@ -171,7 +171,7 @@ public class SignalTest {
     }
 
 
-    public static Double stavka(double kef, double total, int total12, double naOdnuIgru) {
+    public static double stavka(double kef, double total, int total12, double naOdnuIgru) {
         if (total12 < total) {
             return naOdnuIgru * kef;
         } else if (total12 == total) {
