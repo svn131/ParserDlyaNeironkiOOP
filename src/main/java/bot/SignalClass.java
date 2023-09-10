@@ -36,7 +36,7 @@ public class SignalClass {
 
 //            System.out.println("SIGNAL " + Arrays.toString(signalArr)); для теста -вывод в кнсоль
 
-        Thread.sleep(100);
+//        Thread.sleep(100);
     }
 
     public double signalResulta(String[] temp, int i, Map<String, double[]> mapFixedStavka, double balance, int naOdnuIgru, Bot bot) {
@@ -69,7 +69,7 @@ public class SignalClass {
 
         System.out.println(Ansi.ansi().fg(Ansi.Color.YELLOW).a("Баланс").reset() + " " + balance); // для тестов вывод в консоль Желтым
 
-        mapFixedStavka.remove(temp[i + 5]); // чистим лист после проверки резуьтата
+        mapFixedStavka.remove(temp[i + 5]); // чистим лист после проверки резуьтата // повторных сигналов не будет несморя на удаление - из за того что результат смотрится уже после 10 минут а условия для сиггнала до 5ти минут
 
         return balance; // потому что duoble а не Duoble передаеться по значению значит надо вернуть что и присвоить что бы это изменить или принимать ссылочный тип
     }

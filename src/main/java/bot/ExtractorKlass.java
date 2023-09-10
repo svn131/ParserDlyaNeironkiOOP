@@ -4,18 +4,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-
-
+import java.util.*;
 
 
 public class ExtractorKlass {
 
     ObrabotkaSsylok obrabotkaSsylok;
     Map<Integer, double[]> mapaCefov;
+
+    Set<Dop> setDopov = new HashSet<>();//доп логика кефы и прочие - на данный момент устранение багга с четвертями 3 например а временем 4-20
 
 
     public ExtractorKlass(ObrabotkaSsylok obrabotkaSsylok, Map<Integer, double[]> mapaCefov) {
@@ -79,10 +76,21 @@ public class ExtractorKlass {
                     System.out.println("V=================================================");
 //                    System.out.println(extractPCObject(gameObj));
                     System.out.println("/|======================================================");
-                    values.add(String.valueOf(extractSerialKeyGame(gameObj)));
+
+                    int serialKey = extractSerialKeyGame(gameObj);
+                    values.add(String.valueOf(serialKey));
                     extractEArray2(gameObj);
 
+///////////////////////////////////////////// Логика доп
+                    if (setDopov.contains(serialKey)) {
+                        Dop dop = new Dop(serialKey); // логика доп - читает тоже что и выше на пару строк но пока лучший вариант и как по памяти  и скорости лучще создвать постоянно и пытатся ложить или  сначала коннтайнс если такого нет тогда толькосоздавать ?
+                   String chetvert = scObject.getString("CPS");
 
+                   dop.setChetvert(chetvert);
+                        setDopov.add(dop);
+                    }
+
+ ///////////////////////////////////////// Логика доп
                 }
 
                 allValues.add(values);

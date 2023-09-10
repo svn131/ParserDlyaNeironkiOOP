@@ -41,8 +41,7 @@ public class Main {
 
 
 
-    //int resulTime = 1500; // 15 минут проверка результата ставки // обратить внимие что мы берем поля ски общие а желательно при результате брать ски четверти- или же складывать значение при тай не более 10 минут последнее значение
-    int resulTime = 600; // 15 минут проверка результата ставки время в сек. от начала игры  сравниваетьсяс текущим если блее то выводит результат
+    int resulTime = 600; // 10 минут проверка результата ставки время в сек. от начала игры  сравниваетьсяс текущим если более то выводит результат
 
     Bot bot = new Bot();
     SignalClass signalClass = new SignalClass();
@@ -50,6 +49,7 @@ public class Main {
 
     int min = 5000; // от 5000 до  10000 перед новым циклом от 5 с до 10 с
     int max = 10000;
+
 
     public static void main(String[] args) throws IOException, InterruptedException {
 
@@ -97,7 +97,7 @@ public class Main {
                     InputStream inputStream = con.getInputStream();
                     BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
                     String line;
-                    StringBuilder response = new StringBuilder();  // добавляем ответ от сервера джейсон  в сингбилдер
+                    StringBuilder response = new StringBuilder();  // добавляем ответ от сервера джейсон  в стрингбилдер
 
                     while ((line = reader.readLine()) != null) {
                         response.append(line);
@@ -134,14 +134,14 @@ public class Main {
                 Thread.sleep(sleepTime);
             }
             System.out.println(Arrays.toString(temp));
-            signal(); // проверяем если что то есть будет сигнал если есть результат будет результат
+            signal(); // проверяем если что то есть интерестное будет сигнал если есть результат будет результат
 
 
             System.out.println("Hello world!");
 
 
             Random random = new Random();
-            int randomNumber = random.nextInt(max - min + 1) + min; // зависти от наших пееменных
+            int randomNumber = random.nextInt(max - min + 1) + min; // зависит от наших переменных
             Thread.sleep(randomNumber);
 
 
@@ -163,13 +163,13 @@ public class Main {
 
 
 
-            if (cefIstvkaarr != null && Integer.parseInt(temp[i + 2]) < timeSignalDo && Integer.parseInt(temp[i + 3]) + Integer.parseInt(temp[i + 4]) > totalObshyiDlyaSignla && !mapFixedStavka.containsKey(temp[i + 5])) { // если в мапе спели прочитаться значения кефов и тоталов и у нас время меньше заложенных 5 минут и тотал 1 и тотал второй  больще нашего значния тоталОбщий(сигнал) и по команде 1(теперь сирийнику) нету такого в листе тех кто то уже обрабатывался в теченни трех минут то
+            if (cefIstvkaarr != null && Integer.parseInt(temp[i + 2]) < timeSignalDo && Integer.parseInt(temp[i + 3]) + Integer.parseInt(temp[i + 4]) > totalObshyiDlyaSignla && !mapFixedStavka.containsKey(temp[i + 5])) { // если в мапе спели прочитаться значения кефов и тоталов и у нас время меньше заложенных 5 минут и тотал 1 и тотал второй  больще нашего значния тоталОбщий(сигнал) и по команде 1(теперь сирийнику) нету такого в мапе кефов то
 
                 signalClass.signalStavki(temp, i, cefIstvkaarr, mapFixedStavka, bot);
 
 
             }
-            if (Integer.parseInt(temp[i + 2]) > resulTime && mapFixedStavka.containsKey(temp[i + 5])) { // если время уже более того например 15 мин когда пора проверить результат и в листе результатов есть такая команда1 у которой стоит проверить результат то
+            if (Integer.parseInt(temp[i + 2]) > resulTime && mapFixedStavka.containsKey(temp[i + 5])) { // если время уже более того например 15 мин когда пора проверить результат и в фикседмапе(фиксация ставки) есть такая команда1 у которой стоит проверить результат то
 
               balance =  signalClass.signalResulta(temp, i, mapFixedStavka, balance, naOdnuIgru,bot);
 
