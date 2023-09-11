@@ -16,42 +16,41 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.*;
 
-
+// плохо что пол допы не тут не вглавном классе но его помжно получить и через ексеуторс класс гетор или через поле. Ексекутос же заинжекчен
 //@todo доработь кефсредний допустим 1.8 тотал хороший 55  - значит мы делаем выше 5 минут и тотал умножить на кефф >= 99 - это наше число кторое задам как сейчас общий тотал - потому что букмекер может игграть что тоталом то кефом. А так же добавить наше число 55+(текущее время-300наша планка)/60*11 а затем также умножить на 1.8    --> меньше или равно результато тотала на ставку
 //@todo поправить баг с четвиртями когда время идет как с 1ой
 
 public class Main {
 
-    ObrabotkaSsylok obrabotkaSsylok = new ObrabotkaSsylok();
+    MyConnection myConnection = new MyConnection();
 
     Double balance = 10000.0;
     int naOdnuIgru = 1000;
 
 
     String[] temp = new String[300]; // 200
-    int cursorTemp = 0;
-
 
     int totalObshyiDlyaSignla = 20; // 30
-//    int time = 300; // 300 это пять минут
+    //    int time = 300; // 300 это пять минут
     int timeSignalDo = 480; // отладка выше правильнее
 
     Map<Integer, double[]> mapaCefov = new HashMap<>();
     Map<String, double[]> mapFixedStavka = new HashMap<>();
 
 
-
     int resulTime = 600; // 10 минут проверка результата ставки время в сек. от начала игры  сравниваетьсяс текущим если более то выводит результат
 
     Bot bot = new Bot();
     SignalClass signalClass = new SignalClass();
-    ExtractorKlass extractorKlass = new ExtractorKlass(obrabotkaSsylok, mapaCefov);
+    ExtractorKlass extractorKlass = new ExtractorKlass(myConnection.getObrabotkaSsylok(), mapaCefov);
 
     int min = 5000; // от 5000 до  10000 перед новым циклом от 5 с до 10 с
     int max = 10000;
 
 
-    public static void main(String[] args) throws IOException, InterruptedException {
+
+
+    public static void main(String[] args) throws IOException, InterruptedException, TelegramApiException {
 
         Main main = new Main(); // Вынести логику конекта в отдельный класс
 
@@ -60,15 +59,9 @@ public class Main {
 
     }
 
-    public void run() throws IOException, InterruptedException {
+    public void run() throws IOException, InterruptedException, TelegramApiException {
 
-        try {
-
-            TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
-            telegramBotsApi.registerBot(bot);
-        } catch (TelegramApiException e) {
-            throw new RuntimeException(e);
-        }
+        myConnection.myregisterBot();
 
         System.out.println("Логика бота стартанула");
 
@@ -81,51 +74,21 @@ public class Main {
 
             try {
 
-                URL obj = new URL( url + obrabotkaSsylok.getSsilka() + queryString);
-                HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+                JSONObject jsonObject = myConnection.connectIgetJson();
 
-                // Set request method and headers
-                con.setRequestMethod("GET");
-                con.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
 
-                // Get the server response
-                int responseCode = con.getResponseCode();
-                System.out.println("Server Response: " + responseCode);
-
-                // Read the server response
-                if (responseCode == HttpURLConnection.HTTP_OK) {
-                    InputStream inputStream = con.getInputStream();
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-                    String line;
-                    StringBuilder response = new StringBuilder();  // добавляем ответ от сервера джейсон  в стрингбилдер
-
-                    while ((line = reader.readLine()) != null) {
-                        response.append(line);
+                List<List<String>> result = extractorKlass.processJson(jsonObject); // ложим в наш метод и получаем лист листов с играми
+                for (List<String> innerList : result) {
+                    int cursorTemp = 0;
+                    for (String value : innerList) {
+                        System.out.println(value);
+                        temp[cursorTemp] = value;
+                        cursorTemp++;                 // переводим все просто в массив
                     }
-                    reader.close();
-                    //@todo обратить внимание выше и ниже действия по коментам вроде взаимно уничтожаемые
-                    try {
-                        JSONObject jsonObject = new JSONObject(response.toString());// привращаем этот стринг билдер в джейсон
 
-
-                        List<List<String>> result = extractorKlass.processJson(jsonObject); // ложим в наш метод и получаем лист листов с играми
-                        for (List<String> innerList : result) {
-                            for (String value : innerList) {
-                                System.out.println(value);           //@todo обратить внимание выше и ниже действия по коментам вроде взаимно уничтожаемые
-                                temp[cursorTemp] = value;
-                                cursorTemp++;                 // переводим все просто в массив
-                            }
-                        }
-
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    System.out.println("Failed to get server response");
                 }
 
-                con.disconnect();
+                myConnection.disconect();
             } catch (java.net.ConnectException e) {
                 System.out.println("Ошибка подключения: " + e.getMessage());
 
@@ -141,12 +104,12 @@ public class Main {
 
 
             Random random = new Random();
-            int randomNumber = random.nextInt(max - min + 1) + min; // зависит от наших переменных
+            int randomNumber = random.nextInt(max - min + 1) + min; // зависит от наших переменных max min в этом класе 5000 1000 от 5 до 10 сек. на накждый запрос
             Thread.sleep(randomNumber);
 
 
             temp = new String[200];
-            cursorTemp = 0;
+
 
 
         }
@@ -158,9 +121,7 @@ public class Main {
         for (int i = 0; temp[i] != null; i += 6) {
 
             double[] cefIstvkaarr = mapaCefov.get(Integer.parseInt(temp[i + 5])); // извлекаем кеф и ставку по серийнику
-            System.out.println("Серийник запрос " + temp[i + 5] + "Cчет 1й и 2й " + temp[i + 3] + " "+ temp[i + 5]);
-
-
+            System.out.println("Серийник запрос " + temp[i + 5] + "Cчет 1й и 2й " + temp[i + 3] + " " + temp[i + 5]);
 
 
             if (cefIstvkaarr != null && Integer.parseInt(temp[i + 2]) < timeSignalDo && Integer.parseInt(temp[i + 3]) + Integer.parseInt(temp[i + 4]) > totalObshyiDlyaSignla && !mapFixedStavka.containsKey(temp[i + 5])) { // если в мапе спели прочитаться значения кефов и тоталов и у нас время меньше заложенных 5 минут и тотал 1 и тотал второй  больще нашего значния тоталОбщий(сигнал) и по команде 1(теперь сирийнику) нету такого в мапе кефов то
@@ -171,7 +132,7 @@ public class Main {
             }
             if (Integer.parseInt(temp[i + 2]) > resulTime && mapFixedStavka.containsKey(temp[i + 5])) { // если время уже более того например 15 мин когда пора проверить результат и в фикседмапе(фиксация ставки) есть такая команда1 у которой стоит проверить результат то
 
-              balance =  signalClass.signalResulta(temp, i, mapFixedStavka, balance, naOdnuIgru,bot);
+                balance = signalClass.signalResulta(temp, i, mapFixedStavka, balance, naOdnuIgru, bot);
 
             }
         }

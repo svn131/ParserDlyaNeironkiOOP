@@ -82,7 +82,7 @@ public class ExtractorKlass {
                     extractEArray2(gameObj);
 
 ///////////////////////////////////////////// Логика доп
-                    if (setDopov.contains(serialKey)) {
+                    if (setDopov.contains(serialKey)) { // Сперва проверяем так как контайнс дешевле чем создание объекта - хотя се бы справился и в другомпорядке
                         Dop dop = new Dop(serialKey); // логика доп - читает тоже что и выше на пару строк но пока лучший вариант и как по памяти  и скорости лучще создвать постоянно и пытатся ложить или  сначала коннтайнс если такого нет тогда толькосоздавать ?
 //                   String chetvert = scObject.getString("CPS");
 //
@@ -90,13 +90,15 @@ public class ExtractorKlass {
                         setDopov.add(dop);
                     }
                     //выше можно добаввлять в сущность любые пармаетры -например черз локальные переменные метода илиже получить сийник в самом верху и положить сущность там - и исплльзовать их в других стратегиях
- ///////////////////////////////////////// Логика допа просто добаляем все игры из джеймона по баскетболу какие есть даже те что заканчиваються
+                    ///////////////////////////////////////// Логика допа просто добаляем все игры из джеймона по баскетболу какие есть даже те что заканчиваються
                 }
 
 
                 if(scObject.getString("CPS").equals("1-я Четверть")) { // добавляем в лист - игры тольк где первая четветь - остальные игнорируем
-                    allValues.add(values);
-                }
+                allValues.add(values);
+                System.out.println("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
+//                System.out.println(scObject.getString("CPS"));
+            }
                 Integer ssilka = gameObj.getInt("I");
                 obrabotkaSsylok.podgotovkaUrl(ssilka);
             }
