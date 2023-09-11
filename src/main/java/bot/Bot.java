@@ -16,7 +16,7 @@ public class Bot extends TelegramLongPollingBot {
 
     boolean dobavitNovogoUsera = false;
 
-   static Map<Long, String> baseUsers = new HashMap<>();
+    static Map<Long, String> baseUsers = new HashMap<>();
 
     public Bot() {
         ReadOnWrite.loadBaseUsers("C:/userBasesMapa.txt", baseUsers);
@@ -130,7 +130,7 @@ public class Bot extends TelegramLongPollingBot {
 
 
     // Метод для отправки массива строк пользователю
-    private  void sendArrayData(Long chatId, String[] dataArray) {
+    private void sendArrayData(Long chatId, String[] dataArray) {
 
         SendMessage sendMessage = new SendMessage();
         sendMessage.setText(String.join("\n", dataArray));
@@ -157,7 +157,7 @@ public class Bot extends TelegramLongPollingBot {
     }
 
 
-    public  void sendArrayDataToAll(String[] dataArray) {
+    public void sendArrayDataToAll(String[] dataArray) {
 //        System.out.println("Delaetsya sendArrayDataToAll");
 
         List<Long> allowedChatIds = getAllowedChatIds(); // Получаем список разрешенных chatId

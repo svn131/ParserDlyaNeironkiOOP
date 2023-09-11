@@ -1,19 +1,11 @@
 package bot;
 
-import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 import java.io.IOException;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.*;
 
 // плохо что пол допы не тут не вглавном классе но его помжно получить и через ексеуторс класс гетор или через поле. Ексекутос же заинжекчен
@@ -42,12 +34,11 @@ public class Main {
 
     Bot bot = new Bot();
     SignalClass signalClass = new SignalClass();
-    ExtractorKlass extractorKlass = new ExtractorKlass(myConnection.getObrabotkaSsylok(), mapaCefov);
+    ExecutorClass executorClass = new ExecutorClass(myConnection.getObrabotkaSsylok(), mapaCefov);
+    MapperJsonVsArray mapperJsonVsArray = new MapperJsonVsArray(executorClass);
 
     int min = 5000; // от 5000 до  10000 перед новым циклом от 5 с до 10 с
     int max = 10000;
-
-
 
 
     public static void main(String[] args) throws IOException, InterruptedException, TelegramApiException {
@@ -65,9 +56,6 @@ public class Main {
 
         System.out.println("Логика бота стартанула");
 
-        String url = "https://1xstavka.ru/LiveFeed/Get1x2_VZip?sports=3&count=50&antisports=188&mode=4";
-        String queryString = "&country=1&partner=51&getEmpty=true&noFilterBlockEvent=true";
-
 
         while (true) {
 
@@ -76,17 +64,7 @@ public class Main {
 
                 JSONObject jsonObject = myConnection.connectIgetJson();
 
-
-                List<List<String>> result = extractorKlass.processJson(jsonObject); // ложим в наш метод и получаем лист листов с играми
-                for (List<String> innerList : result) {
-                    int cursorTemp = 0;
-                    for (String value : innerList) {
-                        System.out.println(value);
-                        temp[cursorTemp] = value;
-                        cursorTemp++;                 // переводим все просто в массив
-                    }
-
-                }
+                mapperJsonVsArray.mapJsonToArray(jsonObject, temp);// ложим в мапер наш джейсон и получаем ужет олько нужные поля в масиве в  локалный темп
 
                 myConnection.disconect();
             } catch (java.net.ConnectException e) {
@@ -107,11 +85,7 @@ public class Main {
             int randomNumber = random.nextInt(max - min + 1) + min; // зависит от наших переменных max min в этом класе 5000 1000 от 5 до 10 сек. на накждый запрос
             Thread.sleep(randomNumber);
 
-
-            temp = new String[200];
-
-
-
+            String[] temp = new String[300];
         }
     }
 

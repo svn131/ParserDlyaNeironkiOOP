@@ -7,7 +7,7 @@ import org.json.JSONObject;
 import java.util.*;
 
 
-public class ExtractorKlass {
+public class ExecutorClass {
 
     ObrabotkaSsylok obrabotkaSsylok;
     Map<Integer, double[]> mapaCefov;
@@ -15,7 +15,7 @@ public class ExtractorKlass {
     Set<Dop> setDopov = new HashSet<>();//доп логика кефы и прочие - на данный момент устранение багга с четвертями 3 например а временем 4-20
 
 
-    public ExtractorKlass(ObrabotkaSsylok obrabotkaSsylok, Map<Integer, double[]> mapaCefov) {
+    public ExecutorClass(ObrabotkaSsylok obrabotkaSsylok, Map<Integer, double[]> mapaCefov) {
         this.obrabotkaSsylok = obrabotkaSsylok;
         this.mapaCefov = mapaCefov;
     }
@@ -94,11 +94,11 @@ public class ExtractorKlass {
                 }
 
 
-                if(scObject.getString("CPS").equals("1-я Четверть")) { // добавляем в лист - игры тольк где первая четветь - остальные игнорируем
-                allValues.add(values);
-                System.out.println("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
+                if (scObject.getString("CPS").equals("1-я Четверть")) { // добавляем в лист - игры тольк где первая четветь - остальные игнорируем
+                    allValues.add(values);
+                    System.out.println("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
 //                System.out.println(scObject.getString("CPS"));
-            }
+                }
                 Integer ssilka = gameObj.getInt("I");
                 obrabotkaSsylok.podgotovkaUrl(ssilka);
             }
@@ -106,10 +106,6 @@ public class ExtractorKlass {
 
         return allValues;
     }
-
-
-
-
 
 
     public void extractEArray2(JSONObject json) {
@@ -170,7 +166,6 @@ public class ExtractorKlass {
         int seriinikIgry = json.getJSONArray("O2IS").optInt(0, 0); // @todo проверить чтобы не было исключений
         return seriinikIgry;
     }
-
 
 
 }

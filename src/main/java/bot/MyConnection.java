@@ -50,10 +50,9 @@ public class MyConnection {
             reader.close();
 
 
-
-        }   else {
-        System.out.println("Failed to get server response");
-    }
+        } else {
+            System.out.println("Failed to get server response");
+        }
 
         return new JSONObject(response.toString());
     }
@@ -64,7 +63,7 @@ public class MyConnection {
         telegramBotsApi.registerBot(bot);
     }
 
-    public void disconect(){
+    public void disconect() {
         con.disconnect();
     }
 
