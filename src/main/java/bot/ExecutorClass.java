@@ -12,7 +12,7 @@ public class ExecutorClass {
     ObrabotkaSsylok obrabotkaSsylok;
     Map<Integer, double[]> mapaCefov;
 
-    Set<Dop> setDopov = new HashSet<>();//доп логика кефы и прочие - на данный момент устранение багга с четвертями 3 например а временем 4-20
+//    Set<Dop> setDopov = new HashSet<>();//доп логика кефы и прочие - на данный момент устранение багга с четвертями 3 например а временем 4-20
 
 
     public ExecutorClass(ObrabotkaSsylok obrabotkaSsylok, Map<Integer, double[]> mapaCefov) {
@@ -73,33 +73,23 @@ public class ExecutorClass {
 
                     System.out.println(gameObj.toString());
 
-//                    System.out.println(extractPCObject(gameObj));
 
                     int serialKey = extractSerialKeyGame(gameObj);
                     values.add(String.valueOf(serialKey));
 
                     System.out.println("V=================================================");
 
-                    extractEArray2(gameObj);
+                    extractEArray2(gameObj,values);
                     System.out.println("/|======================================================");
 
-///////////////////////////////////////////// Логика доп
-                    if (setDopov.contains(serialKey)) { // Сперва проверяем так как контайнс дешевле чем создание объекта - хотя се бы справился и в другомпорядке
-                        Dop dop = new Dop(serialKey); // логика доп - читает тоже что и выше на пару строк но пока лучший вариант и как по памяти  и скорости лучще создвать постоянно и пытатся ложить или  сначала коннтайнс если такого нет тогда толькосоздавать ?
-//                   String chetvert = scObject.getString("CPS");
-//
-//                   dop.setChetvert(chetvert);
-                        setDopov.add(dop);
-                    }
-                    //выше можно добаввлять в сущность любые пармаетры -например черз локальные переменные метода илиже получить сийник в самом верху и положить сущность там - и исплльзовать их в других стратегиях
-                    ///////////////////////////////////////// Логика допа просто добаляем все игры из джеймона по баскетболу какие есть даже те что заканчиваються
+
                 }
 
 
-                if (scObject.getString("CPS").equals("1-я Четверть")) { // добавляем в лист - игры тольк где первая четветь - остальные игнорируем
+                if (scObject.getString("CPS").equals("1-я Четверть") && values.get(6) != null) { // а что будет если другие параметры нулл ?
                     allValues.add(values);
                     System.out.println("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
-//                System.out.println(scObject.getString("CPS"));
+
                 }
                 Integer ssilka = gameObj.getInt("I");
                 obrabotkaSsylok.podgotovkaUrl(ssilka);
@@ -110,7 +100,7 @@ public class ExecutorClass {
     }
 
 
-    public void extractEArray2(JSONObject json) {
+    public void extractEArray2(JSONObject json, List<String> values) {
         int seriinikIgry = json.getJSONArray("O2IS").optInt(0, 0);
         System.out.println("111112");
         try {
@@ -148,20 +138,7 @@ public class ExecutorClass {
                         System.out.println("T: " + t);
                         System.out.println("P: " + p);
 
-                        //////////////////////////////////////////////////////////////////////////////////
-                        for (Map.Entry<Integer, double[]> entry : mapaCefov.entrySet()) {
-
-                            Integer key = entry.getKey();
-                            double[] value = entry.getValue();
-                            System.out.println("Ключ: " + key);
-                            System.out.println("Значение: " + Arrays.toString(value)); //@todo вывод в кнсоль для отладки
-                        }
-                        System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-///////////////////////////////////////////////////////////////////////////////////////
-
-                        double temp[] = {p, c}; // тотал кеф
-                        mapaCefov.put(seriinikIgry, temp); //@todo пусть перезаписываеться потсоянно так как точно не известно когда сработает сигнал и должны быть актуальные значения, что бы на момент ставки помнить значения запишем их отдельно в методе сигнал в другую переменную - ыяснить нужно ли добавить логику что когда "" или нулл - бывают ли такие ситуации если да -то ими не затиирать
-
+                            values.add(String.valueOf(p));
 
                     }
                 }

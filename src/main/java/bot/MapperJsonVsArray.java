@@ -11,7 +11,7 @@ public class MapperJsonVsArray {
         this.executorClass = executorClass;
     }
 
-    public String[] mapJsonToArray(JSONObject jsonObject, String[] temp) { // маппер производит конвертацию в перемнную аргумента поэтому войд
+    public void mapJsonToArray(JSONObject jsonObject, List<Igra> listIgr) { // маппер производит конвертацию в перемнную аргумента поэтому войд
 
         List<List<String>> result = executorClass.processJson(jsonObject); // ложим в наш метод и получаем лист листов с играми
 
@@ -25,16 +25,121 @@ public class MapperJsonVsArray {
         System.out.println("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW");
 
 
-        int cursorTemp = 0;
         for (List<String> innerList : result) {
-            for (String value : innerList) {
-                System.out.println(value);
-                temp[cursorTemp] = value;
-                cursorTemp++;                 // переводим все просто в массив
+
+            int seriynik = Integer.parseInt(innerList.get(5));
+
+            boolean propusk = true;
+
+            for (Igra igra : listIgr) {
+                if (igra.seriinik == seriynik) { // обновляем значеия если есть
+
+                    prisvoeniePoley(igra, innerList);
+
+                    propusk = false;
+                }
+            }
+
+            if (propusk) { // пропускаем если только такой игры нет - н хешь мапе проще будет ведь там уникльные значения
+                Igra igra = new Igra(seriynik);
+                prisvoeniePoley(igra, innerList);
             }
 
         }
 
-        return temp;
+
     }
+
+    public void prisvoeniePoley(Igra igra, List<String> innerList) {
+        int time = Integer.parseInt(innerList.get(2));
+        int t1 = Integer.parseInt(innerList.get(3));
+        int t2 = Integer.parseInt(innerList.get(4));
+        double pT = Double.parseDouble(innerList.get(6));
+        igra.time = time; // todo олько ради использования в майн
+
+
+        switch (time / 60) {
+
+            case 1:
+                if (igra.zamok1) {
+                    igra.totalOne1 = t1;
+                    igra.totalTwo1 = t2;
+                    igra.predlagaemyiTotalNa1Min = pT;
+                    igra.zamok1 = false;
+                }
+                break;
+            case 2:
+                if (igra.zamok2) {
+                    igra.totalOne2 = t1;
+                    igra.totalTwo2 = t2;
+                    igra.predlagaemyiTotalNa2Min = pT;
+                    igra.zamok2 = false;
+                }
+                break;
+            case 3:
+                if (igra.zamok3) {
+                    igra.totalOne3 = t1;
+                    igra.totalTwo3 = t2;
+                    igra.predlagaemyiTotalNa3Min = pT;
+                    igra.zamok3 = false;
+                }
+                break;
+            case 4:
+                if (igra.zamok4) {
+                    igra.totalOne4 = t1;
+                    igra.totalTwo4 = t2;
+                    igra.predlagaemyiTotalNa4Min = pT;
+                    igra.zamok4 = false;
+                }
+                break;
+            case 5:
+                if (igra.zamok5) {
+                    igra.totalOne5 = t1;
+                    igra.totalTwo5 = t2;
+                    igra.predlagaemyiTotalNa5Min = pT;
+                    igra.zamok5 = false;
+                }
+                break;
+            case 6:
+                if (igra.zamok6) {
+                    igra.totalOne6 = t1;
+                    igra.totalTwo6 = t2;
+                    igra.predlagaemyiTotalNa6Min = pT;
+                    igra.zamok6 = false;
+                }
+                break;
+            case 7:
+                if (igra.zamok7) {
+                    igra.totalOne7 = t1;
+                    igra.totalTwo7 = t2;
+                    igra.predlagaemyiTotalNa7Min = pT;
+                    igra.zamok7 = false;
+                }
+                break;
+            case 8:
+                if (igra.zamok8) {
+                    igra.totalOne8 = t1;
+                    igra.totalTwo8 = t2;
+                    igra.predlagaemyiTotalNa8Min = pT;
+                    igra.zamok8 = false;
+                }
+                break;
+            case 9:
+                if (igra.zamok9) {
+                    igra.totalOne9 = t1;
+                    igra.totalTwo9 = t2;
+                    igra.predlagaemyiTotalNa9Min = pT;
+                    igra.zamok9 = false;
+                }
+                break;
+            case 10 : igra.resultTotal = t1+t2; // записать то нужно
+
+                //todo а можно в игру положить сущнасть минута и нкаплиать всю инфу в ней наполняя поле игры лист минут каждый раз новой минутой и тогда можно будет проводить тесты хоть на сколько минут
+
+
+        }
+
+    }
+
+
 }

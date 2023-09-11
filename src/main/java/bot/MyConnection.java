@@ -16,7 +16,7 @@ import java.net.URL;
 
 public class MyConnection {
 
-    Bot bot = new Bot();
+
     String url = "https://1xstavka.ru/LiveFeed/Get1x2_VZip?sports=3&count=50&antisports=188&mode=4";
     String queryString = "&country=1&partner=51&getEmpty=true&noFilterBlockEvent=true";
     ObrabotkaSsylok obrabotkaSsylok = new ObrabotkaSsylok();
@@ -59,11 +59,7 @@ public class MyConnection {
         return new JSONObject(response.toString());// Поэкперементировать вывести в консоль - посмотреть как выглядит разделитель
     }
 
-    public void myregisterBot() throws TelegramApiException {
 
-        TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
-        telegramBotsApi.registerBot(bot);
-    }
 
     public void disconect() {
         con.disconnect();
