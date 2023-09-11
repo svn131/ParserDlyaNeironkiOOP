@@ -30,6 +30,8 @@ public class ObrabotkaSsylok {
 //        if(ssilkaMap.containsKey(ssilka) && System.currentTimeMillis() - ssilkaMap.get(ssilka)  > 4000){ // 2000 для теста - спустя это время старые ссылки не должны выводитя вновь
 
         if (ssilkaMap.containsKey(ssilka) && System.currentTimeMillis() - ssilkaMap.get(ssilka) > 600000) { // закоменченны йметод ниже тоже самое выполняет - что бы понять суть читать можно его
+//            if (ssilkaMap.containsKey(ssilka) && System.currentTimeMillis() - ssilkaMap.get(ssilka) > 600000) { // закоменченны йметод ниже тоже самое выполняет - что бы понять суть читать можно его
+
 
             ssilkaMap.remove(ssilka);
 

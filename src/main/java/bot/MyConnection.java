@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
+import org.w3c.dom.ls.LSOutput;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -54,7 +55,8 @@ public class MyConnection {
             System.out.println("Failed to get server response");
         }
 
-        return new JSONObject(response.toString());
+        System.out.println(response.toString());
+        return new JSONObject(response.toString());// Поэкперементировать вывести в консоль - посмотреть как выглядит разделитель
     }
 
     public void myregisterBot() throws TelegramApiException {

@@ -22,15 +22,15 @@ public class Main {
 
     String[] temp = new String[300]; // 200
 
-    int totalObshyiDlyaSignla = 20; // 30
+    int totalObshyiDlyaSignla = 10; // 30 ...............................
     //    int time = 300; // 300 это пять минут
-    int timeSignalDo = 480; // отладка выше правильнее
+    int timeSignalDo = 300; // отладка выше правильнее.........................
 
     Map<Integer, double[]> mapaCefov = new HashMap<>();
     Map<String, double[]> mapFixedStavka = new HashMap<>();
 
 
-    int resulTime = 600; // 10 минут проверка результата ставки время в сек. от начала игры  сравниваетьсяс текущим если более то выводит результат
+    int resulTime = 590; // 10 минут проверка результата ставки время в сек. от начала игры  сравниваетьсяс текущим если более то выводит результат
 
     Bot bot = new Bot();
     SignalClass signalClass = new SignalClass();
@@ -64,16 +64,17 @@ public class Main {
 
                 JSONObject jsonObject = myConnection.connectIgetJson();
 
-                mapperJsonVsArray.mapJsonToArray(jsonObject, temp);// ложим в мапер наш джейсон и получаем ужет олько нужные поля в масиве в  локалный темп
+               temp = mapperJsonVsArray.mapJsonToArray(jsonObject, temp);// ложим в мапер наш джейсон и получаем ужет олько нужные поля в масиве в  локалный темп
 
                 myConnection.disconect();
+
             } catch (java.net.ConnectException e) {
                 System.out.println("Ошибка подключения: " + e.getMessage());
-
                 // Ожидание 1 минут перед повторной попыткой отправки запроса в случае  400 ошибки
                 int sleepTime = 1 * 60 * 1000; // 10 минут в миллисекундах
                 Thread.sleep(sleepTime);
             }
+
             System.out.println(Arrays.toString(temp));
             signal(); // проверяем если что то есть интерестное будет сигнал если есть результат будет результат
 
@@ -86,6 +87,18 @@ public class Main {
             Thread.sleep(randomNumber);
 
             String[] temp = new String[300];
+
+            System.out.println("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
+
+            for (Map.Entry<Integer, double[]> entry : mapaCefov.entrySet()) {
+                Integer key = entry.getKey();
+                double[] value = entry.getValue();
+                System.out.println(key + ": " + value);
+            }
+
+            if (mapaCefov == null){
+                System.out.println("Mapa nullllllllllllll");
+            }
         }
     }
 
@@ -98,14 +111,21 @@ public class Main {
             System.out.println("Серийник запрос " + temp[i + 5] + "Cчет 1й и 2й " + temp[i + 3] + " " + temp[i + 5]);
 
 
-            if (cefIstvkaarr != null && Integer.parseInt(temp[i + 2]) < timeSignalDo && Integer.parseInt(temp[i + 3]) + Integer.parseInt(temp[i + 4]) > totalObshyiDlyaSignla && !mapFixedStavka.containsKey(temp[i + 5])) { // если в мапе спели прочитаться значения кефов и тоталов и у нас время меньше заложенных 5 минут и тотал 1 и тотал второй  больще нашего значния тоталОбщий(сигнал) и по команде 1(теперь сирийнику) нету такого в мапе кефов то
+            System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 
+            System.out.println(cefIstvkaarr != null);
+            System.out.println(Integer.parseInt(temp[i + 2]) < timeSignalDo );
+            System.out.println(Integer.parseInt(temp[i + 3]) + Integer.parseInt(temp[i + 4]) > totalObshyiDlyaSignla);
+            System.out.println(!mapFixedStavka.containsKey(temp[i + 5]));
+
+            if (cefIstvkaarr != null && Integer.parseInt(temp[i + 2]) < timeSignalDo && Integer.parseInt(temp[i + 3]) + Integer.parseInt(temp[i + 4]) > totalObshyiDlyaSignla && !mapFixedStavka.containsKey(temp[i + 5])) { // если в мапе спели прочитаться значения кефов и тоталов и у нас время меньше заложенных 5 минут и тотал 1 и тотал второй  больще нашего значния тоталОбщий(сигнал) и по команде 1(теперь сирийнику) нету такого в мапе кефов то
+                System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
                 signalClass.signalStavki(temp, i, cefIstvkaarr, mapFixedStavka, bot);
 
 
             }
             if (Integer.parseInt(temp[i + 2]) > resulTime && mapFixedStavka.containsKey(temp[i + 5])) { // если время уже более того например 15 мин когда пора проверить результат и в фикседмапе(фиксация ставки) есть такая команда1 у которой стоит проверить результат то
-
+                System.out.println("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC");
                 balance = signalClass.signalResulta(temp, i, mapFixedStavka, balance, naOdnuIgru, bot);
 
             }

@@ -11,11 +11,22 @@ public class MapperJsonVsArray {
         this.executorClass = executorClass;
     }
 
-    public void mapJsonToArray(JSONObject jsonObject, String[] temp) { // маппер производит конвертацию в перемнную аргумента поэтому войд
+    public String[] mapJsonToArray(JSONObject jsonObject, String[] temp) { // маппер производит конвертацию в перемнную аргумента поэтому войд
 
         List<List<String>> result = executorClass.processJson(jsonObject); // ложим в наш метод и получаем лист листов с играми
+
+
+        System.out.println("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM");
+        for (List<String> sublist : result) {
+            for (String item : sublist) {
+                System.out.println(item);
+            }
+        }
+        System.out.println("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW");
+
+
+        int cursorTemp = 0;
         for (List<String> innerList : result) {
-            int cursorTemp = 0;
             for (String value : innerList) {
                 System.out.println(value);
                 temp[cursorTemp] = value;
@@ -24,5 +35,6 @@ public class MapperJsonVsArray {
 
         }
 
+        return temp;
     }
 }
