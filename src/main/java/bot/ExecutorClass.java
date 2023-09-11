@@ -73,13 +73,15 @@ public class ExecutorClass {
 
                     System.out.println(gameObj.toString());
 
-                    System.out.println("V=================================================");
 //                    System.out.println(extractPCObject(gameObj));
-                    System.out.println("/|======================================================");
 
                     int serialKey = extractSerialKeyGame(gameObj);
                     values.add(String.valueOf(serialKey));
+
+                    System.out.println("V=================================================");
+
                     extractEArray2(gameObj);
+                    System.out.println("/|======================================================");
 
 ///////////////////////////////////////////// Логика доп
                     if (setDopov.contains(serialKey)) { // Сперва проверяем так как контайнс дешевле чем создание объекта - хотя се бы справился и в другомпорядке
@@ -110,27 +112,35 @@ public class ExecutorClass {
 
     public void extractEArray2(JSONObject json) {
         int seriinikIgry = json.getJSONArray("O2IS").optInt(0, 0);
-
+        System.out.println("111112");
         try {
             JSONArray sgArray = json.getJSONArray("SG");
-
+            System.out.println("111113");
             for (int i = 0; i < sgArray.length(); i++) {
                 JSONObject sgObject = sgArray.getJSONObject(i);
-
+                System.out.println("111114");
                 JSONArray eArray = sgObject.getJSONArray("E");
                 System.out.println("Массив E: " + eArray);
-
+                System.out.println("111115");
                 for (int j = 0; j < eArray.length(); j++) {
                     JSONObject eObject = eArray.getJSONObject(j);
 
-
+                    System.out.println("111116");
                     double c = eObject.getDouble("C");
                     int g = eObject.getInt("G");
                     int t = eObject.getInt("T");
                     double p = eObject.optDouble("P", 0.0);
+                    String chetvertAreya =sgObject.getString("PN"); //////доработка
+
+                    System.out.println(chetvertAreya + "111117");
 
                     // Обработка элемента массива E
-                    if (p > 30.0 && p < 100.0 && t == 9 && g == 17) { //@todo тонкая настройка бота
+//                    if (p > 30.0 && p < 100.0 && t == 9 && g == 17) { //@todo тонкая настройка бота
+
+
+                    if(chetvertAreya.equals("1-я Четверть")){
+                        System.out.println("piiiiiiiiiiiiiiiiii");
+//                    if(chetvertAreya.equals("2-я Четверть")){
                         System.out.println("Найден подходящий элемент:");
 
                         System.out.println("C: " + c);

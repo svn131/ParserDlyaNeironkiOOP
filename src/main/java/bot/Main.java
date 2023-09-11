@@ -108,7 +108,7 @@ public class Main {
         for (int i = 0; temp[i] != null; i += 6) {
 
             double[] cefIstvkaarr = mapaCefov.get(Integer.parseInt(temp[i + 5])); // извлекаем кеф и ставку по серийнику
-            System.out.println("Серийник запрос " + temp[i + 5] + "Cчет 1й и 2й " + temp[i + 3] + " " + temp[i + 5]);
+            System.out.println("Серийник запрос " + temp[i + 5] + " Cчет 1й и 2й " + temp[i + 3] + " " + temp[i + 4]);
 
 
             System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
