@@ -99,4 +99,5 @@ public class Igra {
                 ", vremyaPoslednegoVzaimodestviya=" + vremyaPoslednegoVzaimodestviya + /// todo Убрать ?
                 '}';
     }
+
 }
