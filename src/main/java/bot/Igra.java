@@ -4,6 +4,9 @@ import java.util.Objects;
 
 public class Igra {
 
+    String o1;
+    String o2;
+
     int seriinik;
 
     int time;
@@ -61,6 +64,12 @@ public class Igra {
     boolean zamok8 = true;
     boolean zamok9 = true;
 
+boolean zamokResult = true;
+boolean zamokWrite = false;
+boolean zamokSamounichtoghitel = false;
+
+long samounochtogitel = 2000000000000L;
+
 
 
 
@@ -91,13 +100,60 @@ public class Igra {
         return Objects.hash(seriinik);
     }
 
+//    @Override
+//    public String toString() {
+//        return "Igra{" +
+//                "seriinik=" + seriinik +
+//                ", time=" + time +
+//                ", vremyaPoslednegoVzaimodestviya=" + vremyaPoslednegoVzaimodestviya + /// todo Убрать ?
+//                '}';
+//    }
+
+
     @Override
     public String toString() {
         return "Igra{" +
                 "seriinik=" + seriinik +
                 ", time=" + time +
-                ", vremyaPoslednegoVzaimodestviya=" + vremyaPoslednegoVzaimodestviya + /// todo Убрать ?
+                ", totalOne1=" + totalOne1 +
+                ", totalOne2=" + totalOne2 +
+                ", totalOne3=" + totalOne3 +
+                ", totalOne4=" + totalOne4 +
+                ", totalOne5=" + totalOne5 +
+                ", totalOne6=" + totalOne6 +
+                ", totalOne7=" + totalOne7 +
+                ", totalOne8=" + totalOne8 +
+                ", totalOne9=" + totalOne9 +
+                ", totalTwo1=" + totalTwo1 +
+                ", totalTwo2=" + totalTwo2 +
+                ", totalTwo3=" + totalTwo3 +
+                ", totalTwo4=" + totalTwo4 +
+                ", totalTwo5=" + totalTwo5 +
+                ", totalTwo6=" + totalTwo6 +
+                ", totalTwo7=" + totalTwo7 +
+                ", totalTwo8=" + totalTwo8 +
+                ", totalTwo9=" + totalTwo9 +
+                ", resultTotal=" + resultTotal +
+                ", vremyaPoslednegoVzaimodestviya=" + vremyaPoslednegoVzaimodestviya +
+                ", predlagaemyiTotalNa1Min=" + predlagaemyiTotalNa1Min +
+                ", predlagaemyiTotalNa2Min=" + predlagaemyiTotalNa2Min +
+                ", predlagaemyiTotalNa3Min=" + predlagaemyiTotalNa3Min +
+                ", predlagaemyiTotalNa4Min=" + predlagaemyiTotalNa4Min +
+                ", predlagaemyiTotalNa5Min=" + predlagaemyiTotalNa5Min +
+                ", predlagaemyiTotalNa6Min=" + predlagaemyiTotalNa6Min +
+                ", predlagaemyiTotalNa7Min=" + predlagaemyiTotalNa7Min +
+                ", predlagaemyiTotalNa8Min=" + predlagaemyiTotalNa8Min +
+                ", predlagaemyiTotalNa9Min=" + predlagaemyiTotalNa9Min +
+                ", zamok1=" + zamok1 +
+                ", zamok2=" + zamok2 +
+                ", zamok3=" + zamok3 +
+                ", zamok4=" + zamok4 +
+                ", zamok5=" + zamok5 +
+                ", zamok6=" + zamok6 +
+                ", zamok7=" + zamok7 +
+                ", zamok8=" + zamok8 +
+                ", zamok9=" + zamok9 +
+                ", zamokResult=" + zamokResult +
                 '}';
     }
-
 }

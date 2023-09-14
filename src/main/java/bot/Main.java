@@ -21,7 +21,7 @@ public class Main {
     ExecutorClass executorClass = new ExecutorClass(myConnection.getObrabotkaSsylok(), mapaCefov);
     MapperJsonVsArray mapperJsonVsArray = new MapperJsonVsArray(executorClass);
 
-    int min = 5000; // от 5000 до  10000 перед новым циклом от 5 с до 10 с
+    int min = 5000; // от 5000 до 10000 перед новым циклом от 5 с до 10 с
     int max = 10000;
 
 
@@ -42,6 +42,8 @@ public class Main {
 //        myConnection.myregisterBot();
 
         System.out.println("Логика бота стартанула");
+
+        writeResultTxt.tempWriteOtladka(); //
 
 
         while (true) {
@@ -84,19 +86,66 @@ public class Main {
     }
 
 
-    public void signal()  {
 
-        for (Igra igra : listIgr) {
+
+//todo сделать запрос ссылок раз в 40 секунд для каждой игры
+
+    public void signal() {
+
+        System.out.println("SSSSSSSSSSSignalMetod igratime peredlistom ");
+
+        System.out.println(listIgr.isEmpty());
+
+        Iterator<Igra> igraIterator = listIgr.iterator();
+        while (igraIterator.hasNext()) {
+            Igra igra = igraIterator.next();
+
+
             // todo если играт айм нулл ? добавить ?
 
-            if (igra.time / 60 > 12) {
+            System.out.println("SSSSSSSSSSSignalMetod igratime " + igra.time + " igraTotal na pervoi minute =  " + igra.totalOne1 + "  predlagaemuy total na 8oy " + igra.predlagaemyiTotalNa8Min);
+
+            if (igra.zamokWrite) {
                 writeResultTxt.writeResultTxt(igra);
-                listIgr.remove(igra);
+                igra.samounochtogitel = System.currentTimeMillis();
+                igra.zamokWrite=false;
+
+            }
+           else if (igra.samounochtogitel+ 240000 < System.currentTimeMillis()) { // самоуничожение чеоез 4 минуты
+                igraIterator.remove();
             }
 
+
         }
-
     }
-
 }
 
+
+//    public void signal()  {
+//
+//        System.out.println("SSSSSSSSSSSignalMetod igratime peredlistom " );
+//
+//        System.out.println(listIgr.isEmpty());
+//        List<Igra> temListIgr = new ArrayList<>();
+//
+//        for (Igra igra : listIgr) {
+//            // todo если играт айм нулл ? добавить ?
+//
+//            System.out.println("SSSSSSSSSSSignalMetod igratime " + igra.time+ " igraTotal na pervoi minute =  " + igra.totalOne1);
+//
+//            if (!igra.zamokResult) {
+//                writeResultTxt.writeResultTxt(igra);
+////                listIgr.remove(igra);
+//                temListIgr.add(igra);
+//            }
+//
+//        }
+//
+//
+//        for(Igra igra: temListIgr){
+//            listIgr.remove(igra);
+//        }
+//
+//    }
+//
+//}

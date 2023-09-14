@@ -29,33 +29,50 @@ public class MapperJsonVsArray {
 
             int seriynik = Integer.parseInt(innerList.get(5));
 
-            boolean propusk = true;
+            boolean  takoiNet = true;
+
+
 
             for (Igra igra : listIgr) {
+
                 if (igra.seriinik == seriynik) { // обновляем значеия если есть
 
                     prisvoeniePoley(igra, innerList);
-
-                    propusk = false;
+                    takoiNet = false;
+                    break;
                 }
+
             }
 
-            if (propusk) { // пропускаем если только такой игры нет - н хешь мапе проще будет ведь там уникльные значения
-                Igra igra = new Igra(seriynik);
-                prisvoeniePoley(igra, innerList);
-            }
 
+
+            if(takoiNet) { // пропускаем если только такой игры нет - н хешь мапе проще будет ведь там уникльные значения
+
+                System.out.println(" листе нет такой игры иф такой нет - серийник -- " + seriynik);
+
+               Igra igra = new Igra(seriynik);
+               prisvoeniePoley(igra, innerList);
+
+                listIgr.add(igra);
+            }
         }
-
-
     }
 
     public void prisvoeniePoley(Igra igra, List<String> innerList) {
+        System.out.println("vvvvvvvvvvvvvvvvvvvvvvv");
+
         int time = Integer.parseInt(innerList.get(2));
         int t1 = Integer.parseInt(innerList.get(3));
         int t2 = Integer.parseInt(innerList.get(4));
         double pT = Double.parseDouble(innerList.get(6));
         igra.time = time; // todo олько ради использования в майн
+
+
+        String o1 = innerList.get(0);
+        String o2 = innerList.get(1);
+
+        igra.o1 = o1;
+        igra.o2 = o2;
 
 
         switch (time / 60) {
@@ -132,14 +149,21 @@ public class MapperJsonVsArray {
                     igra.zamok9 = false;
                 }
                 break;
-            case 10 : igra.resultTotal = t1+t2; // записать то нужно
+            default:
+                if (igra.zamokResult && time < 720) { // когда более 10 минут или  10 то кладеться результат а так же когда менее одной
+                    igra.resultTotal = t1 + t2;
+                    igra.zamokResult = false;
+                    igra.zamokWrite = true;// постоянно будет фолсе напечаталась поменяла а тру опять пришла сюда и поменяла фолсе
+                }
+        }
 
-                //todo а можно в игру положить сущнасть минута и нкаплиать всю инфу в ней наполняя поле игры лист минут каждый раз новой минутой и тогда можно будет проводить тесты хоть на сколько минут
 
+
+            //todo а можно в игру положить сущнасть минута и нкаплиать всю инфу в ней наполняя поле игры лист минут каждый раз новой минутой и тогда можно будет проводить тесты хоть на сколько минут
 
         }
+
 
     }
 
 
-}
