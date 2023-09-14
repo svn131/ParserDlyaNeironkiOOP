@@ -23,6 +23,9 @@ public class ExecutorClass {
 
     public List<List<String>> processJson(JSONObject jsonObject) {
 
+
+        System.out.println("Glavnuy JSSOOOOOOOOOOOOOOOOOOOOOOOON - "+jsonObject.toString());
+
         List<List<String>> allValues = new ArrayList<>();
         int time = 0;
 
@@ -98,15 +101,19 @@ public class ExecutorClass {
                 }
 
 
-                if (scObject.getString("CPS").equals("1-я Четверть") && time > 60 || scObject.getString("CPS").equals("2-я Четверть") && time >= 600 ) { // а что будет если другие параметры нулл ? todo ложим игру если  ts  более 600 это для того что бы она прошла игнал и удалилдась с листов потом пс это конкртноесостояние игры
+                if (scObject.getString("CPS").equals("1-я Четверть") && time > 60 ) { // а что будет если другие параметры нулл ? todo ложим игру если  ts  более 600 это для того что бы она прошла игнал и удалилдась с листов потом пс это конкртноесостояние игры
 
-                    if(!izvleklos){
-                        values.add("14.3"); //////////////////////
+                    if(izvleklos) {
+//                        values.add("14.3"); //////////////////////
+
+
+                        allValues.add(values);
+                        System.out.println("       -      ");
                     }
 
+                } else if (time >= 600 && time < 720) {
+                    values.add("14.3");
                     allValues.add(values);
-                    System.out.println("             ");
-
                 }
 
 

@@ -21,8 +21,8 @@ public class Main {
     ExecutorClass executorClass = new ExecutorClass(myConnection.getObrabotkaSsylok(), mapaCefov);
     MapperJsonVsArray mapperJsonVsArray = new MapperJsonVsArray(executorClass);
 
-    int min = 5000; // от 5000 до 10000 перед новым циклом от 5 с до 10 с
-    int max = 10000;
+    int min = 2000; // от 5000 до 10000 перед новым циклом от 5 с до 10 с
+    int max = 5000;
 
 
     List<Igra> listIgr = new ArrayList<>();
@@ -101,7 +101,7 @@ public class Main {
             Igra igra = igraIterator.next();
 
 
-            // todo если играт айм нулл ? добавить ?
+            // todo если играт тайм нулл ? добавить ?
 
             System.out.println("SSSSSSSSSSSignalMetod igratime " + igra.time + " igraTotal na pervoi minute =  " + igra.totalOne1 + "  predlagaemuy total na 8oy " + igra.predlagaemyiTotalNa8Min);
 
