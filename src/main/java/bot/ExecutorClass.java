@@ -44,6 +44,11 @@ public class ExecutorClass {
                 JSONObject scObject = gameObj.optJSONObject("SC");
 
                 boolean izvleklos = false;
+                int s1 = 0;
+                int s2 = 0;
+
+
+
 
                 if (scObject != null) {
                     JSONArray psList = scObject.optJSONArray("PS");
@@ -51,12 +56,13 @@ public class ExecutorClass {
                         for (int i = 0; i < psList.length(); i++) {
                             JSONObject psObject = psList.getJSONObject(i);
                             String nf = psObject.optString("NF", "");
-                            int s1 = psObject.optInt("S1", 0);
-                            int s2 = psObject.optInt("S2", 0);
+                             s1 = psObject.optInt("S1", 100);
+                             s2 = psObject.optInt("S2", 100);
 
 
                             if ("1-я Четверть".equals(nf)) {
-                                values.add(String.valueOf(s1));
+                                System.out.println("Получено в  методе 1");
+                                values.add(String.valueOf(s1));                    // todo судя по огам эта часть кода не работает
                                 values.add(String.valueOf(s2));
                                 break;
                             }
@@ -70,15 +76,16 @@ public class ExecutorClass {
 
                     time = Integer.parseInt(ts);
 
+
+
                     JSONObject fsObject = scObject.optJSONObject("FS");
                     if (fsObject != null) {
-                        int s1 = fsObject.optInt("S1", 0);
-                        int s2 = fsObject.optInt("S2", 0);
+                        System.out.println("Получено в  методе 2");
+                         s1 = fsObject.optInt("S1", 100);
+                         s2 = fsObject.optInt("S2", 100);
                         values.add(String.valueOf(s1));
                         values.add(String.valueOf(s2));
-                        if(s1 == 0 && s2  == 0){
-                            continue;
-                        }
+
                     }
 
 
@@ -103,7 +110,7 @@ public class ExecutorClass {
 
                 if (scObject.getString("CPS").equals("1-я Четверть") && time > 60 ) { // а что будет если другие параметры нулл ? todo ложим игру если  ts  более 600 это для того что бы она прошла игнал и удалилдась с листов потом пс это конкртноесостояние игры
 
-                    if(izvleklos) {
+                    if(izvleklos && s1 != 100 && s2 != 100) {
 //                        values.add("14.3"); //////////////////////
 
 
@@ -111,7 +118,7 @@ public class ExecutorClass {
                         System.out.println("       -      ");
                     }
 
-                } else if (time >= 600 && time < 720) {
+                } else if (time >= 600 && time < 720 && s1!=100 && s2 != 100) {
                     values.add("14.3");
                     allValues.add(values);
                 }
