@@ -11,51 +11,74 @@ public class WriteResultTxt {
     public void writeResultTxt(Igra igra) {
 
         System.out.println("Write nighe igra v ");
-//       String vi = "Ee seryinik " + igra.seriinik + " " + igra.o1 +" "+ igra.o2 +
-//                " ТоталО1-1 "+ igra.totalOne1 +
-//                " ТоталО1-2 "+ igra.totalOne2 +
-//                " ТоталО1-3 "+ igra.totalOne3 +
-//                " ТоталО1-4 "+ igra.totalOne4 +
-//                " ТоталО1-5 "+ igra.totalOne5 +
-//                " ТоталО1-6 "+ igra.totalOne6 +
-//                " ТоталО1-7 "+ igra.totalOne7 +
-//                " ТоталО1-8 "+ igra.totalOne8 +
-//                " ТоталО1-9 "+ igra.totalOne9 +
-//
-//                " ТоталО2-1 "+ igra.totalTwo1 +
-//                " ТоталО2-2 "+ igra.totalTwo2 +
-//                " ТоталО2-3 "+ igra.totalTwo3 +
-//                " ТоталО2-4 "+ igra.totalTwo4 +
-//                " ТоталО2-5 "+ igra.totalTwo5 +
-//                " ТоталО2-6 "+ igra.totalTwo6 +
-//                " ТоталО2-7 "+ igra.totalTwo7 +
-//                " ТоталО2-8 "+ igra.totalTwo8 +
-//                " ТоталО2-9 "+ igra.totalTwo9 +
-//
-//
-//                " Тотал давала бк-1 "+ igra.predlagaemyiTotalNa1Min +
-//                " Тотал давала бк-2 "+ igra.predlagaemyiTotalNa2Min +
-//                " Тотал давала бк-3 "+ igra.predlagaemyiTotalNa3Min +
-//                " Тотал давала бк-4 "+ igra.predlagaemyiTotalNa4Min +
-//                " Тотал давала бк-5 "+ igra.predlagaemyiTotalNa5Min +
-//                " Тотал давала бк-6 "+ igra.predlagaemyiTotalNa6Min +
-//                " Тотал давала бк-7 "+ igra.predlagaemyiTotalNa7Min +
-//                " Тотал давала бк-8 "+ igra.predlagaemyiTotalNa8Min +
-//                " Тотал давала бк-9 "+ igra.predlagaemyiTotalNa9Min ;
+       String vi = "Ee seryinik " + igra.seriinik + " " + igra.o1 +" "+ igra.o2 +
+                " ТоталО1-1 "+ igra.totalOne1 +
+                " ТоталО1-2 "+ igra.totalOne2 +
+                " ТоталО1-3 "+ igra.totalOne3 +
+                " ТоталО1-4 "+ igra.totalOne4 +
+                " ТоталО1-5 "+ igra.totalOne5 +
+                " ТоталО1-6 "+ igra.totalOne6 +
+                " ТоталО1-7 "+ igra.totalOne7 +
+                " ТоталО1-8 "+ igra.totalOne8 +
+                " ТоталО1-9 "+ igra.totalOne9 +
 
-//        System.out.println(vi);
+                " ТоталО2-1 "+ igra.totalTwo1 +
+                " ТоталО2-2 "+ igra.totalTwo2 +
+                " ТоталО2-3 "+ igra.totalTwo3 +
+                " ТоталО2-4 "+ igra.totalTwo4 +
+                " ТоталО2-5 "+ igra.totalTwo5 +
+                " ТоталО2-6 "+ igra.totalTwo6 +
+                " ТоталО2-7 "+ igra.totalTwo7 +
+                " ТоталО2-8 "+ igra.totalTwo8 +
+                " ТоталО2-9 "+ igra.totalTwo9 +
 
-//
-//        String timeFormat = "HH:mm:ss";
-//        SimpleDateFormat sdf = new SimpleDateFormat(timeFormat);
-//        String currentTime = sdf.format(new Date());
-//
-//        try (BufferedWriter writer = new BufferedWriter(new FileWriter("C:/output.txt", true))) {
-//            writer.write(currentTime + " - " + vi);
-//            writer.newLine();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+
+                " Тотал давала бк-1 "+ igra.predlagaemyiTotalNa1Min +
+                " Тотал давала бк-2 "+ igra.predlagaemyiTotalNa2Min +
+                " Тотал давала бк-3 "+ igra.predlagaemyiTotalNa3Min +
+                " Тотал давала бк-4 "+ igra.predlagaemyiTotalNa4Min +
+                " Тотал давала бк-5 "+ igra.predlagaemyiTotalNa5Min +
+                " Тотал давала бк-6 "+ igra.predlagaemyiTotalNa6Min +
+                " Тотал давала бк-7 "+ igra.predlagaemyiTotalNa7Min +
+                " Тотал давала бк-8 "+ igra.predlagaemyiTotalNa8Min +
+                " Тотал давала бк-9 "+ igra.predlagaemyiTotalNa9Min +
+
+
+
+
+                " Замок1 -  "+ igra.zamok1 +
+                " Замок2 -  "+ igra.zamok2 +
+                " Замок3 -  "+ igra.zamok3 +
+                " Замок4 -  "+ igra.zamok4 +
+                " Замок5 -  "+ igra.zamok5 +
+                " Замок6 -  "+ igra.zamok6 +
+                " Замок7 -  "+ igra.zamok7 +
+                " Замок8 -  "+ igra.zamok8 +
+                " Замок9 -  "+ igra.zamok9 +
+                " zamokWrite -  "+ igra.zamokWrite +
+                " zamokResult -  "+ igra.zamokResult +
+                " zamokSamounichtoghitel -  "+ igra.zamokSamounichtoghitel +
+
+                " IgraTime -  "+ igra.time ;
+
+
+
+
+
+
+        System.out.println(vi);
+
+
+        String timeFormat = "HH:mm:ss";
+        SimpleDateFormat sdf = new SimpleDateFormat(timeFormat);
+        String currentTime = sdf.format(new Date());
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("C:/output.txt", true))) {
+            writer.write(currentTime + " - " + vi);
+            writer.newLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
         /////////////////////

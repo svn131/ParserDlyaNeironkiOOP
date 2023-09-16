@@ -21,8 +21,8 @@ public class Main {
     ExecutorClass executorClass = new ExecutorClass(myConnection.getObrabotkaSsylok(), mapaCefov);
     MapperJsonVsArray mapperJsonVsArray = new MapperJsonVsArray(executorClass);
 
-    int min = 2000; // от 5000 до 10000 перед новым циклом от 5 с до 10 с
-    int max = 5000;
+    int min = 5000; // от 5000 до 10000 перед новым циклом от 5 с до 10 с
+    int max = 10000;
 
 
     List<Igra> listIgr = new ArrayList<>();
@@ -109,6 +109,8 @@ public class Main {
                 writeResultTxt.writeResultTxt(igra);
                 igra.samounochtogitel = System.currentTimeMillis();
                 igra.zamokWrite=false;
+
+//                myConnection.obrabotkaSsylok.removessilka();
 
             }
            else if (igra.samounochtogitel+ 240000 < System.currentTimeMillis()) { // самоуничожение чеоез 4 минуты
