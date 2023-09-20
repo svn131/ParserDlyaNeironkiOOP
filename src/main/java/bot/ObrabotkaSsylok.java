@@ -91,13 +91,28 @@ public class ObrabotkaSsylok {
 
 
         try {
-            if (!iterator.hasNext()) {
-                iterator = ssilkaMap.keySet().iterator();
-            }
-            String s = "&subGames=" + String.valueOf(iterator.next());
-            System.out.println("Выданна ссылка " + s);
-            return s;
+
+          if(ssilkaMap.size()<5) {
+
+
+              if (!iterator.hasNext()) {
+                  iterator = ssilkaMap.keySet().iterator();
+              }
+              String s = "&subGames=" + String.valueOf(iterator.next());
+              System.out.println("Выданна ссылка " + s);
+              return s;
 //            return "&subGames="+String.valueOf(iterator.next()); //@todo лучший вариант - выше просто для вывода для тестов
+          }
+
+          else {
+              int[] arr = new int [] {iterator.next(),iterator.next(),iterator.next()};
+             Arrays.sort(arr);
+            return "&subGames="+arr[2]+"%2C"+arr[1]+"%2C"+arr[0];
+
+          }
+
+
+
 
         } catch (NullPointerException e) {
 
