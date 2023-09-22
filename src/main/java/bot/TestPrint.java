@@ -1,11 +1,12 @@
 package bot;
 
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 
 public class TestPrint {
-    public static void main(String[] args) {
-        try {
+    public static void main(String[] args) throws FileNotFoundException {
+
             // Создание объекта PrintStream и связывание его с текстовым документом
             PrintStream out = new PrintStream(new FileOutputStream("C:/logOutput.txt"));
 
@@ -17,8 +18,6 @@ public class TestPrint {
 
             // Закрытие объекта PrintStream и освобождение ресурсов
             out.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
     }
 }
