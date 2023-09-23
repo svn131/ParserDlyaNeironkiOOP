@@ -61,6 +61,15 @@ public class MyConnection {
 
 
 
+//    Exception in thread "main" org.json.JSONException: A JSONObject text must begin with '{' at 0 [character 1 line 1]
+//    at org.json.JSONTokener.syntaxError(JSONTokener.java:501)
+//    at org.json.JSONObject.<init>(JSONObject.java:208)
+//    at org.json.JSONObject.<init>(JSONObject.java:404)
+//    at bot.MyConnection.connectIgetJson(MyConnection.java:59)
+//    at bot.Main.run(Main.java:63)
+//    at bot.Main.main(Main.java:44)
+
+
     public void disconect() {
         con.disconnect();
     }

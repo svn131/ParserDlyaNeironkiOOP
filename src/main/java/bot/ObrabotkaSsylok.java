@@ -72,65 +72,8 @@ public class ObrabotkaSsylok {
         return false;
     }
 
-        public String getSsilka() { // каждый раз тут будет выдаваться новая ссылка при обращении к локальной мапе
-//hz++;
-
-        System.out.println("SsilkiSsilkiSsilkiSsilkiSsilkiSsilkiSsilkiSsilkiSsilkiSsilkiSsilki");
-
-        for (Map.Entry<Integer, Long> entry : ssilkaMap.entrySet()) {
-            Integer key = entry.getKey();
-            Long value = entry.getValue();
-            System.out.println("Key: " + key + ", Value: " + value);
-        }
-
-
-        System.out.println("SsilkiSsilkiSsilkiSsilkiSsilkiSsilkiSsilkiSsilkiSsilkiSsilkiSsilki1 ");
-
-
-
-
-
-        try {
-
-          if(ssilkaMap.size()<5) {
-
-
-              if (!iterator.hasNext()) {
-                  iterator = ssilkaMap.keySet().iterator();
-              }
-              String s = "&subGames=" + String.valueOf(iterator.next());
-              System.out.println("Выданна ссылка " + s);
-              return s;
-//            return "&subGames="+String.valueOf(iterator.next()); //@todo лучший вариант - выше просто для вывода для тестов
-          }
-
-          else {
-              int[] arr = new int [] {iterator.next(),iterator.next(),iterator.next()};
-             Arrays.sort(arr);
-            return "&subGames="+arr[2]+"%2C"+arr[1]+"%2C"+arr[0];
-
-          }
-
-
-
-
-        } catch (NullPointerException e) {
-
-            iterator = ssilkaMap.keySet().iterator(); // создасться когда у нс первый запуск. Или очень просто большой и мапа стала пуста
-            // Обработка исключения или выброс другого исключения,
-            // если требуется особая логика
-            return ""; // или любое другое значение по вашему выбору // если мапа пуста будет возвращться это - допустим кончились все игры на 15 минут и надо парсить вообще будет ли еще https://1xstavka.ru/LiveFeed/Get1x2_VZip?sports=3&count=50&antisports=188&mode=4&country=1&partner=51&getEmpty=true&noFilterBlockEvent=true
-        } catch (NoSuchElementException e) {
-            System.out.println("При инициализации итератора в ифе мапа оказалась пуста - игры не идут ?");
-            return "";
-        }
-
-
-
-
-    }
-        //    public String getSsilka() { // каждый раз тут будет выдаваться новая ссылка при обращении к локальной мапе
-//hz++;
+//        public String getSsilka() { // каждый раз тут будет выдаваться новая ссылка при обращении к локальной мапе
+////hz++;
 //
 //        System.out.println("SsilkiSsilkiSsilkiSsilkiSsilkiSsilkiSsilkiSsilkiSsilkiSsilkiSsilki");
 //
@@ -139,22 +82,37 @@ public class ObrabotkaSsylok {
 //            Long value = entry.getValue();
 //            System.out.println("Key: " + key + ", Value: " + value);
 //        }
-//
-//
-//        System.out.println("SsilkiSsilkiSsilkiSsilkiSsilkiSsilkiSsilkiSsilkiSsilkiSsilkiSsilki1 " + hz);
+
+
+//        System.out.println("SsilkiSsilkiSsilkiSsilkiSsilkiSsilkiSsilkiSsilkiSsilkiSsilkiSsilki1 ");
 //
 //
 //
 //
 //
 //        try {
-//            if (!iterator.hasNext()) {
-//                iterator = ssilkaMap.keySet().iterator();
-//            }
-//            String s = "&subGames=" + String.valueOf(iterator.next());
-//            System.out.println("Выданна ссылка " + s);
-//            return s;
+//
+//          if(ssilkaMap.size()<5) {
+//
+//
+//              if (!iterator.hasNext()) {
+//                  iterator = ssilkaMap.keySet().iterator();
+//              }
+//              String s = "&subGames=" + String.valueOf(iterator.next());
+//              System.out.println("Выданна ссылка " + s);
+//              return s;
 ////            return "&subGames="+String.valueOf(iterator.next()); //@todo лучший вариант - выше просто для вывода для тестов
+//          }
+//
+//          else {
+//              int[] arr = new int [] {iterator.next(),iterator.next(),iterator.next()};
+//             Arrays.sort(arr);
+//            return "&subGames="+arr[2]+"%2C"+arr[1]+"%2C"+arr[0];
+//
+//          }
+//
+//
+//
 //
 //        } catch (NullPointerException e) {
 //
@@ -168,7 +126,49 @@ public class ObrabotkaSsylok {
 //        }
 //
 //
+//
+//
 //    }
+            public String getSsilka() { // каждый раз тут будет выдаваться новая ссылка при обращении к локальной мапе
+
+
+        System.out.println("SsilkiSsilkiSsilkiSsilkiSsilkiSsilkiSsilkiSsilkiSsilkiSsilkiSsilki");
+
+        for (Map.Entry<Integer, Long> entry : ssilkaMap.entrySet()) {
+            Integer key = entry.getKey();
+            Long value = entry.getValue();
+            System.out.println("Key: " + key + ", Value: " + value);
+        }
+
+
+        System.out.println("SsilkiSsilkiSsilkiSsilkiSsilkiSsilkiSsilkiSsilkiSsilkiSsilkiSsilki1 " + hz);
+
+
+
+
+
+        try {
+            if (!iterator.hasNext()) {
+                iterator = ssilkaMap.keySet().iterator();
+            }
+            String s = "&subGames=" + String.valueOf(iterator.next());
+            System.out.println("Выданна ссылка " + s);
+            return s;
+//            return "&subGames="+String.valueOf(iterator.next()); //@todo лучший вариант - выше просто для вывода для тестов
+
+        } catch (NullPointerException e) {
+
+            iterator = ssilkaMap.keySet().iterator(); // создасться когда у нс первый запуск. Или очень просто большой и мапа стала пуста
+            // Обработка исключения или выброс другого исключения,
+            // если требуется особая логика
+            return ""; // или любое другое значение по вашему выбору // если мапа пуста будет возвращться это - допустим кончились все игры на 15 минут и надо парсить вообще будет ли еще https://1xstavka.ru/LiveFeed/Get1x2_VZip?sports=3&count=50&antisports=188&mode=4&country=1&partner=51&getEmpty=true&noFilterBlockEvent=true
+        } catch (NoSuchElementException e) {
+            System.out.println("При инициализации итератора в ифе мапа оказалась пуста - игры не идут ?");
+            return "";
+        }
+
+
+    }
     public void logikaOchistkiSnytuhforMaghorno() {
 
     }

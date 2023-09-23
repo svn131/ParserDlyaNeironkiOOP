@@ -118,22 +118,25 @@ public class ExecutorClass {
                         System.out.println("       -      ");
                     }
 
-                    Integer ssilka = gameObj.getInt("I");
-                    obrabotkaSsylok.podgotovkaUrl(ssilka);
+//                    Integer ssilka = gameObj.getInt("I");
+//                    obrabotkaSsylok.podgotovkaUrl(ssilka);
 
                 } else if (time >= 600 && time < 720 && s1!=100 && s2 != 100) {
                     values.add("14.3");
                     allValues.add(values);
 
+
+//                    Integer ssilka = gameObj.getInt("I");
+//                    obrabotkaSsylok.podgotovkaUrl(ssilka);
                 }
                 else if (time > 60 && time < 600) {
-                    Integer ssilka = gameObj.getInt("I");
-                obrabotkaSsylok.podgotovkaUrl(ssilka);
+//                    Integer ssilka = gameObj.getInt("I");
+//                obrabotkaSsylok.podgotovkaUrl(ssilka);
                 }
 
 
-//                Integer ssilka = gameObj.getInt("I");
-//                obrabotkaSsylok.podgotovkaUrl(ssilka);
+                Integer ssilka = gameObj.getInt("I");
+                obrabotkaSsylok.podgotovkaUrl(ssilka);
             }
         }
 

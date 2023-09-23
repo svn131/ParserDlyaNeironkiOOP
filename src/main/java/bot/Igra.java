@@ -66,7 +66,7 @@ public class Igra {
 
 boolean zamokResult = true;
 boolean zamokWrite = false;
-boolean zamokSamounichtoghitel = false;
+//boolean zamokSamounichtoghitel = false;
 
 long samounochtogitel = 2000000000000L;
 

@@ -57,7 +57,7 @@ public class WriteResultTxt {
                 " Замок9 -  "+ igra.zamok9 +
                 " zamokWrite -  "+ igra.zamokWrite +
                 " zamokResult -  "+ igra.zamokResult +
-                " zamokSamounichtoghitel -  "+ igra.zamokSamounichtoghitel +
+//                " zamokSamounichtoghitel -  "+ igra.zamokSamounichtoghitel +
 
                 " IgraTime -  "+ igra.time ;
 

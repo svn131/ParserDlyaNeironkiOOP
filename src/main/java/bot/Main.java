@@ -2,14 +2,20 @@ package bot;
 
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 import org.json.JSONObject;
 
+import java.io.PrintStream;
 import java.util.*;
 
 
 public class Main {
+
+    {PrintStream out = new PrintStream(new FileOutputStream("C:/logOutput.txt"));
+       System.setOut(out);}
 
     WriteResultTxt writeResultTxt = new WriteResultTxt();
 
@@ -21,11 +27,14 @@ public class Main {
     ExecutorClass executorClass = new ExecutorClass(myConnection.getObrabotkaSsylok(), mapaCefov);
     MapperJsonVsArray mapperJsonVsArray = new MapperJsonVsArray(executorClass);
 
-    int min = 5000; // от 5000 до 10000 перед новым циклом от 5 с до 10 с
-    int max = 10000;
+    int min = 3000; // от 5000 до 10000 перед новым циклом от 5 с до 10 с
+    int max = 5000;
 
 
     List<Igra> listIgr = new ArrayList<>();
+
+    public Main() throws FileNotFoundException {
+    }
 
 
     public static void main(String[] args) throws IOException, InterruptedException, TelegramApiException {
@@ -113,7 +122,7 @@ public class Main {
 //                myConnection.obrabotkaSsylok.removessilka();
 
             }
-           else if (igra.samounochtogitel+ 240000 < System.currentTimeMillis()) { // самоуничожение чеоез 4 минуты
+           else if (igra.samounochtogitel+ 480000 < System.currentTimeMillis()) { // самоуничожение чеоез 4 минуты
                 igraIterator.remove();
             }
 
