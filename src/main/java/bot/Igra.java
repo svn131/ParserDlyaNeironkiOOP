@@ -1,5 +1,7 @@
 package bot;
 
+import org.w3c.dom.ls.LSOutput;
+
 import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -135,7 +137,7 @@ public class Igra {
 
     }
     public void setTotalOneandTwo(int timess,  int totalOne, int totalTwo){
-
+        System.out.println("Ищу ошибку 5 - тайм "+timess+ " tot1 "+ totalOne +" 2 - " + totalTwo);
 
         switch (time / 60) {
             case 1:
@@ -181,9 +183,11 @@ public class Igra {
 
 
     public void setResultTotal(int timess,  int totalOne, int totalTwo){
+        System.out.println("Ищу ошибку 7 - тайм "+timess+ " tot1 "+ totalOne +" 2 - " + totalTwo);
         if(timess >= 600 && zamokResult){
             resultTotal = totalOne + totalTwo;
             zamokWrite = true;
+            System.out.println("Ищу ошибку 8 - тайм "+timess+ " tot1 "+ totalOne +" 2 - " + totalTwo);
         }
     }
 

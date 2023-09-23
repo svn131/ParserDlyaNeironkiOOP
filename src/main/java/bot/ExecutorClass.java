@@ -54,20 +54,25 @@ public class ExecutorClass {
 
 
                 if (scObject != null) {
-                    JSONArray psList = scObject.optJSONArray("PS");
+                    JSONArray psList = scObject.optJSONArray("PS");//todo
                     if (psList != null) {
 
                         for (int i = 0; i < psList.length(); i++) {
                             JSONObject psObject = psList.getJSONObject(i);
+                            System.out.println("ИЩУ ошибку 1");
                             if (psObject.getInt("Key") == 1) { //todo первая четверть результаты
                                 JSONObject value = psObject.getJSONObject("Value");
+                                System.out.println("ИЩУ ошибку 2");
                                 if (value.has("S1") && value.has("S2")) {
+                                    System.out.println("ИЩУ ошибку 3");
                                     int s1 = value.getInt("S1");//todo
                                     int s2 = value.getInt("S2");//todo
                                     igra.setTotalOneandTwo(time, s1, s2);
                                     igra.setResultTotal(time, s1, s2);//todo
 
                                     break;
+                                } else {
+                                    System.out.println("Не сработало строка 60");
                                 }
                             }
                         }
@@ -158,19 +163,6 @@ public class ExecutorClass {
 
 
     }
-//    public int extractSerialKeyGame(JSONObject json) {
-//        if (json.has("O2IS")) {
-//            JSONArray o2isArray = json.getJSONArray("O2IS");
-//            if (o2isArray.length() > 0) {
-//                System.out.println("Серийник вернуть "+ o2isArray);
-//                return o2isArray.optInt(0);
-//            }
-//        }
-//        System.out.println("Серийник не найден ");
-//        return 0;
-
-//
-//    }
 
     public Igra extractIgraPoSeriniku(int seriinik){
 
@@ -179,7 +171,9 @@ public class ExecutorClass {
                return igra;
            }
         }
-        return new Igra(seriinik);
+        Igra igra = new Igra(seriinik);
+        listIgr.add(igra);
+        return igra;
     }
 
 }
