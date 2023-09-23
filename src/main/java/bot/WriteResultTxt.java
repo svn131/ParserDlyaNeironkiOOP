@@ -10,71 +10,17 @@ public class WriteResultTxt {
     //todo что если поля нуллили привышают диапазон ?
     public void writeResultTxt(Igra igra) {
 
-        System.out.println("Write nighe igra v ");
-       String vi = "Ee seryinik " + igra.seriinik + " " + igra.o1 +" "+ igra.o2 +
-                " ТоталО1-1 "+ igra.totalOne1 +
-                " ТоталО1-2 "+ igra.totalOne2 +
-                " ТоталО1-3 "+ igra.totalOne3 +
-                " ТоталО1-4 "+ igra.totalOne4 +
-                " ТоталО1-5 "+ igra.totalOne5 +
-                " ТоталО1-6 "+ igra.totalOne6 +
-                " ТоталО1-7 "+ igra.totalOne7 +
-                " ТоталО1-8 "+ igra.totalOne8 +
-                " ТоталО1-9 "+ igra.totalOne9 +
+        System.out.println("Write nighe igra v----------------------------------------- ");
 
-                " ТоталО2-1 "+ igra.totalTwo1 +
-                " ТоталО2-2 "+ igra.totalTwo2 +
-                " ТоталО2-3 "+ igra.totalTwo3 +
-                " ТоталО2-4 "+ igra.totalTwo4 +
-                " ТоталО2-5 "+ igra.totalTwo5 +
-                " ТоталО2-6 "+ igra.totalTwo6 +
-                " ТоталО2-7 "+ igra.totalTwo7 +
-                " ТоталО2-8 "+ igra.totalTwo8 +
-                " ТоталО2-9 "+ igra.totalTwo9 +
-
-
-                " Тотал давала бк-1 "+ igra.predlagaemyiTotalNa1Min +
-                " Тотал давала бк-2 "+ igra.predlagaemyiTotalNa2Min +
-                " Тотал давала бк-3 "+ igra.predlagaemyiTotalNa3Min +
-                " Тотал давала бк-4 "+ igra.predlagaemyiTotalNa4Min +
-                " Тотал давала бк-5 "+ igra.predlagaemyiTotalNa5Min +
-                " Тотал давала бк-6 "+ igra.predlagaemyiTotalNa6Min +
-                " Тотал давала бк-7 "+ igra.predlagaemyiTotalNa7Min +
-                " Тотал давала бк-8 "+ igra.predlagaemyiTotalNa8Min +
-                " Тотал давала бк-9 "+ igra.predlagaemyiTotalNa9Min +
-
-
-
-
-                " Замок1 -  "+ igra.zamok1 +
-                " Замок2 -  "+ igra.zamok2 +
-                " Замок3 -  "+ igra.zamok3 +
-                " Замок4 -  "+ igra.zamok4 +
-                " Замок5 -  "+ igra.zamok5 +
-                " Замок6 -  "+ igra.zamok6 +
-                " Замок7 -  "+ igra.zamok7 +
-                " Замок8 -  "+ igra.zamok8 +
-                " Замок9 -  "+ igra.zamok9 +
-                " zamokWrite -  "+ igra.zamokWrite +
-                " zamokResult -  "+ igra.zamokResult +
-//                " zamokSamounichtoghitel -  "+ igra.zamokSamounichtoghitel +
-
-                " IgraTime -  "+ igra.time ;
-
-
-
-
-
-
-        System.out.println(vi);
-
+        String str = igra.toString();
+        System.out.println(str);
 
         String timeFormat = "HH:mm:ss";
         SimpleDateFormat sdf = new SimpleDateFormat(timeFormat);
         String currentTime = sdf.format(new Date());
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("C:/output.txt", true))) {
-            writer.write(currentTime + " - " + vi);
+            writer.write(currentTime + " - " + str);
             writer.newLine();
         } catch (IOException e) {
             e.printStackTrace();
@@ -99,15 +45,15 @@ public class WriteResultTxt {
         byte[] j = new byte[230];
 
 
-        a = vidachaArrOneMinutes(igra.totalOne1, igra.totalTwo1, igra.predlagaemyiTotalNa1Min, 1, igra.resultTotal);
-        b = vidachaArrOneMinutes(igra.totalOne2, igra.totalTwo2, igra.predlagaemyiTotalNa2Min, 2, igra.resultTotal);
-        c = vidachaArrOneMinutes(igra.totalOne3, igra.totalTwo3, igra.predlagaemyiTotalNa3Min, 3, igra.resultTotal);
-        d = vidachaArrOneMinutes(igra.totalOne4, igra.totalTwo4, igra.predlagaemyiTotalNa4Min, 4, igra.resultTotal);
-        e = vidachaArrOneMinutes(igra.totalOne5, igra.totalTwo5, igra.predlagaemyiTotalNa5Min, 5, igra.resultTotal);
-        f = vidachaArrOneMinutes(igra.totalOne6, igra.totalTwo6, igra.predlagaemyiTotalNa6Min, 6, igra.resultTotal);
-        g = vidachaArrOneMinutes(igra.totalOne7, igra.totalTwo7, igra.predlagaemyiTotalNa7Min, 7, igra.resultTotal);
-        i = vidachaArrOneMinutes(igra.totalOne8, igra.totalTwo8, igra.predlagaemyiTotalNa8Min, 8, igra.resultTotal);
-        j = vidachaArrOneMinutes(igra.totalOne9, igra.totalTwo9, igra.predlagaemyiTotalNa9Min, 9, igra.resultTotal);
+        a = vidachaArrOneMinutes(igra.masivMinut[0].totalOne, igra.masivMinut[0].totalTwo, igra.masivMinut[0].predlagaemyiBukmekermTotal, 1, igra.resultTotal);
+        b = vidachaArrOneMinutes(igra.masivMinut[1].totalOne, igra.masivMinut[1].totalTwo, igra.masivMinut[1].predlagaemyiBukmekermTotal, 2, igra.resultTotal);
+        c = vidachaArrOneMinutes(igra.masivMinut[2].totalOne, igra.masivMinut[2].totalTwo, igra.masivMinut[2].predlagaemyiBukmekermTotal, 3, igra.resultTotal);
+        d = vidachaArrOneMinutes(igra.masivMinut[3].totalOne, igra.masivMinut[3].totalTwo, igra.masivMinut[3].predlagaemyiBukmekermTotal, 4, igra.resultTotal);
+        e = vidachaArrOneMinutes(igra.masivMinut[4].totalOne, igra.masivMinut[4].totalTwo, igra.masivMinut[4].predlagaemyiBukmekermTotal, 5, igra.resultTotal);
+        f = vidachaArrOneMinutes(igra.masivMinut[5].totalOne, igra.masivMinut[5].totalTwo, igra.masivMinut[5].predlagaemyiBukmekermTotal, 6, igra.resultTotal);
+        g = vidachaArrOneMinutes(igra.masivMinut[6].totalOne, igra.masivMinut[6].totalTwo, igra.masivMinut[6].predlagaemyiBukmekermTotal, 7, igra.resultTotal);
+        i = vidachaArrOneMinutes(igra.masivMinut[7].totalOne, igra.masivMinut[7].totalTwo, igra.masivMinut[7].predlagaemyiBukmekermTotal, 8, igra.resultTotal);
+        j = vidachaArrOneMinutes(igra.masivMinut[8].totalOne, igra.masivMinut[8].totalTwo, igra.masivMinut[8].predlagaemyiBukmekermTotal, 9, igra.resultTotal);
 
         String aString = byteArrayToString(a);
         String bString = byteArrayToString(b);
@@ -181,30 +127,9 @@ public class WriteResultTxt {
         return builder.toString();
     }
 
-//    public void tempWriteOtladka() {
-//        String timeFormat = "HH:mm:ss";
-//        SimpleDateFormat sdf = new SimpleDateFormat(timeFormat);
-//        String currentTime = sdf.format(new Date());
-//
-//        try (BufferedWriter writer = new BufferedWriter(new FileWriter("C:/output.txt", true))) {
-//            writer.write(currentTime + " - Ee seryinik " + igra.seriinik);
-//            writer.newLine();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+
     public void tempWriteOtladka(){
-//        byte[] otladkaArr = new byte[230];
-//        for (int i = 0; i < 229; i++) {
-//            otladkaArr[i] = (byte) i;
-//        }
-//
-//        String tempS = byteArrayToString(otladkaArr);
-//        try (BufferedWriter writerTemp = new BufferedWriter(new FileWriter("C:/output.txt",true))){
-//            writerTemp.write(tempS);
-//
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
+
         String timeFormat = "HH:mm:ss";
         SimpleDateFormat sdf = new SimpleDateFormat(timeFormat);
         String currentTime = sdf.format(new Date());

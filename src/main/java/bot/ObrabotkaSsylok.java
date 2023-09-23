@@ -32,7 +32,7 @@ public class ObrabotkaSsylok {
 
         for (Map.Entry<Integer, Long> entry : ssilkaMap.entrySet()) {
 
-            if (System.currentTimeMillis() - entry.getValue() > 1200000) { // 1 200 000 это 20 минут
+            if (System.currentTimeMillis() - entry.getValue() > 1_800_000) { // 1 200 000 это 20 минут
 
                 System.out.println("Удалена ссылка "+ entry.toString());
 
@@ -40,7 +40,6 @@ public class ObrabotkaSsylok {
             }
         }
 
-//        if(ssilkaMap.containsKey(ssilka) && System.currentTimeMillis() - ssilkaMap.get(ssilka)  > 4000){ // 2000 для теста - спустя это время старые ссылки не должны выводитя вновь
 
 
 
@@ -72,63 +71,7 @@ public class ObrabotkaSsylok {
         return false;
     }
 
-//        public String getSsilka() { // каждый раз тут будет выдаваться новая ссылка при обращении к локальной мапе
-////hz++;
-//
-//        System.out.println("SsilkiSsilkiSsilkiSsilkiSsilkiSsilkiSsilkiSsilkiSsilkiSsilkiSsilki");
-//
-//        for (Map.Entry<Integer, Long> entry : ssilkaMap.entrySet()) {
-//            Integer key = entry.getKey();
-//            Long value = entry.getValue();
-//            System.out.println("Key: " + key + ", Value: " + value);
-//        }
 
-
-//        System.out.println("SsilkiSsilkiSsilkiSsilkiSsilkiSsilkiSsilkiSsilkiSsilkiSsilkiSsilki1 ");
-//
-//
-//
-//
-//
-//        try {
-//
-//          if(ssilkaMap.size()<5) {
-//
-//
-//              if (!iterator.hasNext()) {
-//                  iterator = ssilkaMap.keySet().iterator();
-//              }
-//              String s = "&subGames=" + String.valueOf(iterator.next());
-//              System.out.println("Выданна ссылка " + s);
-//              return s;
-////            return "&subGames="+String.valueOf(iterator.next()); //@todo лучший вариант - выше просто для вывода для тестов
-//          }
-//
-//          else {
-//              int[] arr = new int [] {iterator.next(),iterator.next(),iterator.next()};
-//             Arrays.sort(arr);
-//            return "&subGames="+arr[2]+"%2C"+arr[1]+"%2C"+arr[0];
-//
-//          }
-//
-//
-//
-//
-//        } catch (NullPointerException e) {
-//
-//            iterator = ssilkaMap.keySet().iterator(); // создасться когда у нс первый запуск. Или очень просто большой и мапа стала пуста
-//            // Обработка исключения или выброс другого исключения,
-//            // если требуется особая логика
-//            return ""; // или любое другое значение по вашему выбору // если мапа пуста будет возвращться это - допустим кончились все игры на 15 минут и надо парсить вообще будет ли еще https://1xstavka.ru/LiveFeed/Get1x2_VZip?sports=3&count=50&antisports=188&mode=4&country=1&partner=51&getEmpty=true&noFilterBlockEvent=true
-//        } catch (NoSuchElementException e) {
-//            System.out.println("При инициализации итератора в ифе мапа оказалась пуста - игры не идут ?");
-//            return "";
-//        }
-//
-//
-//
-//
-//    }
             public String getSsilka() { // каждый раз тут будет выдаваться новая ссылка при обращении к локальной мапе
 
 
@@ -184,31 +127,3 @@ public class ObrabotkaSsylok {
 
 
 
-//        if (ssilkaMap.containsKey(ssilka) && System.currentTimeMillis() - ssilkaMap.get(ssilka) > 12000000) { // закоменченны йметод ниже тоже самое выполняет - что бы понять суть читать можно его было 60
-////            if (ssilkaMap.containsKey(ssilka) && System.currentTimeMillis() - ssilkaMap.get(ssilka) > 600000) { // закоменченны йметод ниже тоже самое выполняет - что бы понять суть читать можно его
-//
-//
-//                ssilkaMap.remove(ssilka);
-//
-//
-////            if(ssilkaMap.containsKey(ssilka)){
-////
-////                Long iTimeIgry  = ssilkaMap.get(ssilka);
-////
-////                if(iTimeIgry!=null){
-////                    if(System.currentTimeMillis() - iTimeIgry  > 600000){ // удаляем значение если оно в мапе более 10 мин. Но сного оно не добавиться благодоря проверки в 31 сроке
-////                        ssilkaMap.remove(ssilka);
-////                    }
-////                }
-//
-//                } else if (!custumArrContains(ssilka)) {  // проверяем еть ли такая ссылка в масиве слежения
-//                ssilkaMap.put(ssilka, System.currentTimeMillis()); // еси нет джобавляем элемент в хешь мапу
-//                arrSlighenya[cursor] = ssilka; // и в массив слежения
-//                cursor++;
-//
-//                if (cursor > otladkaNaskolkoMasiv - 2) { // при заплненности масива на 998 - начинаем затирать тарые значения новыми с 0 индекса начиная
-//                cursor = 0;
-//                }
-//
-//
-//                }

@@ -21,17 +21,15 @@ public class Main {
 
     MyConnection myConnection = new MyConnection();
 
+    List<Igra> listIgr = new ArrayList<>();
 
-    Map<Integer, double[]> mapaCefov = new HashMap<>();
 
-    ExecutorClass executorClass = new ExecutorClass(myConnection.getObrabotkaSsylok(), mapaCefov);
-    MapperJsonVsArray mapperJsonVsArray = new MapperJsonVsArray(executorClass);
+    ExecutorClass executorClass = new ExecutorClass(myConnection.getObrabotkaSsylok(),listIgr);
+
 
     int min = 3000; // от 5000 до 10000 перед новым циклом от 5 с до 10 с
     int max = 5000;
 
-
-    List<Igra> listIgr = new ArrayList<>();
 
     public Main() throws FileNotFoundException {
     }
@@ -48,7 +46,7 @@ public class Main {
 
     public void run() throws IOException, InterruptedException, TelegramApiException {
 
-//        myConnection.myregisterBot();
+
 
         System.out.println("Логика бота стартанула");
 
@@ -62,16 +60,18 @@ public class Main {
 
                 JSONObject jsonObject = myConnection.connectIgetJson();
 
-                mapperJsonVsArray.mapJsonToArray(jsonObject, listIgr);// ложим в мапер наш джейсон и получаем ужет олько нужные поля в масиве в  локалный темп
+                executorClass.processJson(jsonObject);
 
                 myConnection.disconect();
 
             } catch (java.net.ConnectException e) {
                 System.out.println("Ошибка подключения: " + e.getMessage());
                 // Ожидание 1 минут перед повторной попыткой отправки запроса в случае  400 ошибки
-                int sleepTime = 1 * 60 * 1000; // 10 минут в миллисекундах
+                int sleepTime = 1 * 60 * 1000; // 1 минута в миллисекундах
                 Thread.sleep(sleepTime);
             }
+
+
 
             for (Igra igra : listIgr) {
                 System.out.println(igra.toString());
@@ -81,12 +81,13 @@ public class Main {
             signal(); // проверяем если что то есть интерестное будет сигнал если есть результат будет результат
 
 
-            System.out.println("Hello world!");
+
 
 
             Random random = new Random();
             int randomNumber = random.nextInt(max - min + 1) + min; // зависит от наших переменных max min в этом класе 5000 1000 от 5 до 10 сек. на накждый запрос
             Thread.sleep(randomNumber);
+
 
 
             System.out.println("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
@@ -112,17 +113,18 @@ public class Main {
 
             // todo если играт тайм нулл ? добавить ?
 
-            System.out.println("SSSSSSSSSSSignalMetod igratime " + igra.time + " igraTotal na pervoi minute =  " + igra.totalOne1 + "  predlagaemuy total na 8oy " + igra.predlagaemyiTotalNa8Min);
+            System.out.println("SSSSSSSSSSSignalMetod igratime " + igra.time + " igraTotal na vtoroi minute =  " + igra.masivMinut[0].totalOne + "  predlagaemuy total na 8oy " + igra.masivMinut[6].totalTwo);
 
             if (igra.zamokWrite) {
                 writeResultTxt.writeResultTxt(igra);
                 igra.samounochtogitel = System.currentTimeMillis();
                 igra.zamokWrite=false;
+                igra.zamokResult = false;
 
-//                myConnection.obrabotkaSsylok.removessilka();
+
 
             }
-           else if (igra.samounochtogitel+ 480000 < System.currentTimeMillis()) { // самоуничожение чеоез 4 минуты
+           else if (igra.samounochtogitel+ 480_000 < System.currentTimeMillis()) { // самоуничожение чеоез 8 минуты
                 igraIterator.remove();
             }
 
@@ -132,34 +134,3 @@ public class Main {
 }
 
 
-//    public void signal()  {
-//
-//        System.out.println("SSSSSSSSSSSignalMetod igratime peredlistom " );
-//
-//        System.out.println(listIgr.isEmpty());
-//        List<Igra> temListIgr = new ArrayList<>();
-//
-//        for (Igra igra : listIgr) {
-//            // todo если играт айм нулл ? добавить ?
-//
-//            System.out.println("SSSSSSSSSSSignalMetod igratime " + igra.time+ " igraTotal na pervoi minute =  " + igra.totalOne1);
-//
-//            if (!igra.zamokResult) {
-//                writeResultTxt.writeResultTxt(igra);
-////                listIgr.remove(igra);
-//                temListIgr.add(igra);
-//            }
-//
-//        }
-//
-//
-//        for(Igra igra: temListIgr){
-//            listIgr.remove(igra);
-//        }
-//
-//    }
-//
-//}
-
-//todo  нам минуты вышепяти не нужны для обучения или даже выше например 6ти - а так же минута это сильно большой отрезок нужно мыслить 10 секундными отрезками - разобраться по какой конкретно ссылке приходит инфа именно на игру - и кидать именно их - а остальные у оторых более 6 минув игре и более 12 для прверок не кидать совсем - уменьшение ссылок будет посылать чаще нужные ссылки с ответом.
-//todo а так же расширить число ячеек для тотала 59.5 очень маленькое значение. бывает и выше.

@@ -8,6 +8,7 @@ public class Igra {
 
     String o1;
     String o2;
+    boolean zamokO1O2 = true;
 
     private long startanula = System.currentTimeMillis();
 
@@ -31,6 +32,7 @@ public class Igra {
     int resultTotal;
 
 
+
     public Igra(int seriinik) {
         this.seriinik = seriinik;
         masivMinut = new Minute[]{new Minute(), new Minute(), new Minute(), new Minute(), new Minute(), new Minute(), new Minute(), new Minute(), new Minute()};
@@ -41,6 +43,15 @@ public class Igra {
         Date date = new Date(startanula);
         return "Стартанула " + sdf.format(date);
     }
+
+    public void setO1iO2(String o1,String o2) {
+        if(zamokO1O2) {
+            this.o1 = o1;
+            this.o2 = o2;
+            zamokO1O2 = false;
+        }
+    }
+
 
 
     @Override
@@ -77,6 +88,7 @@ public class Igra {
                 ", resultTotal=" + resultTotal +
                 getStartanula() +
                 "лист минут" + Arrays.toString(masivMinut) +
+                "time "+ time +
                 '}';
     }
 
@@ -163,13 +175,15 @@ public class Igra {
                 masivMinut[8].setTotalTwo(totalTwo);
                 break;
 
+
         }
     }
 
 
     public void setResultTotal(int timess,  int totalOne, int totalTwo){
-        if(timess >= 600 ){
+        if(timess >= 600 && zamokResult){
             resultTotal = totalOne + totalTwo;
+            zamokWrite = true;
         }
     }
 
@@ -179,6 +193,7 @@ public class Igra {
 
 
 
+//////////////////////////////////////////////////////////////////////////////
     public class Minute {
 
         double predlagaemyiBukmekermTotal;
