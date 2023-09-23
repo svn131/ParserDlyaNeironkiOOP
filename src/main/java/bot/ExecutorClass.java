@@ -25,29 +25,31 @@ public class ExecutorClass {
 
         JSONArray valueList = jsonObject.optJSONArray("Value");
         if (valueList != null && valueList.length() > 0) {
+
             for (int j = 0; j < valueList.length(); j++) {
                 JSONObject gameObj = valueList.getJSONObject(j); // получаем из джейсона валью - там был лист джейсонов вот получаем с него каждый раз по одному джейсону с игрой
 
+                JSONObject scObject = gameObj.optJSONObject("SC"); //todo
+
+                String ts = scObject.optString("TS"); //todo null ???
+                if (ts == null || ts.isEmpty()) {
+                    continue;
+                }
+                int time = Integer.parseInt(ts); //todo
+
 //                int serialKey = extractSerialKeyGame(gameObj); // получаем сирийник игры//todo
                 Integer ssilkaSerialKey = gameObj.getInt("I"); //todo доработать брать только ту иггру по которой сделали запрос - это для SG а для ссылок брать все
-                Igra igra = extractIgraPoSeriniku(ssilkaSerialKey); // получаем игру//todo
+                Igra igra = extractIgraPoSeriniku(ssilkaSerialKey, time); // получаем игру//todo
+                if(igra == null){
+                continue; // todo объединить с выше стоящим переместив парсинг тайма
+                }
 
                 String o1 = gameObj.optString("O1");//todo
                 String o2 = gameObj.optString("O2");//todo
 
                 igra.setO1iO2(o1, o2);//todo
 
-                JSONObject scObject = gameObj.optJSONObject("SC");
-
-
-                String ts = scObject.optString("TS"); //todo null ???
-                if(ts==null|| ts.isEmpty()){
-                    continue;
-                }
-
-                int time = Integer.parseInt(ts); //todo
-
-                igra.time = time;
+                igra.time = time; //todo
 
 
 // в "SC" берем "PS" в нем смотрим каждый джейсон
@@ -89,21 +91,14 @@ public class ExecutorClass {
                 extractPredlagaemyiTotal(gameObj, time, igra);
 
 
-                System.out.println("Seeeeeeeeeeeeeeeeee " + ssilkaSerialKey  + " время" + ts); ////////////////////////////////////////////////////Важно отладка
-
+                System.out.println("Seeeeeeeeeeeeeeeeee " + ssilkaSerialKey + " время" + ts); ////////////////////////////////////////////////////Важно отладка
 
 
                 if (time <= 600) {
-                    obrabotkaSsylok.podgotovkaUrl(ssilkaSerialKey );
+                    obrabotkaSsylok.podgotovkaUrl(ssilkaSerialKey);
                 }
 
             }
-
-
-
-
-
-
 
 
         }
@@ -158,27 +153,31 @@ public class ExecutorClass {
             }
 
         } catch (JSONException e) {
-            System.out.println("Json SGGGGGGGG не был обнаружен");;
+            System.out.println("Json SGGGGGGGG не был обнаружен");
+            ;
         }
 
 
     }
 
-    public Igra extractIgraPoSeriniku(int seriinik){
+    public Igra extractIgraPoSeriniku(int seriinik, int time) {
 
-        for (Igra igra: listIgr){
-           if(igra.seriinik == seriinik){
-               return igra;
-           }
+        for (Igra igra : listIgr) {
+            if (igra.seriinik == seriinik) {
+                return igra;
+            }
         }
-        Igra igra = new Igra(seriinik);
-        listIgr.add(igra);
-        return igra;
+        if (time < 720) {
+            Igra igra = new Igra(seriinik);
+            listIgr.add(igra);
+            return igra;
+        } else {
+            return null;
+        }
+
     }
 
 }
-
-
 
 
 //https://1xstavka.ru/LiveFeed/GetGameZip?id=478130639&isSubGames=true&GroupEvents=true&allEventsGroupSubGames=true&countevents=250&partner=51&grMode=2&marketType=1&gr=44&isNewBuilder=true
