@@ -29,7 +29,7 @@ public class ExecutorClass {
                 JSONObject gameObj = valueList.getJSONObject(j); // получаем из джейсона валью - там был лист джейсонов вот получаем с него каждый раз по одному джейсону с игрой
 
 //                int serialKey = extractSerialKeyGame(gameObj); // получаем сирийник игры//todo
-                Integer ssilkaSerialKey = gameObj.getInt("I");
+                Integer ssilkaSerialKey = gameObj.getInt("I"); //todo доработать брать только ту иггру по которой сделали запрос - это для SG а для ссылок брать все
                 Igra igra = extractIgraPoSeriniku(ssilkaSerialKey); // получаем игру//todo
 
                 String o1 = gameObj.optString("O1");//todo
