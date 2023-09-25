@@ -14,8 +14,8 @@ import java.util.*;
 
 public class Main {
 
-    {PrintStream out = new PrintStream(new FileOutputStream("C:/logOutput.txt"));
-       System.setOut(out);}
+//    {PrintStream out = new PrintStream(new FileOutputStream("C:/logOutput.txt"));
+//       System.setOut(out);}
 
     WriteResultTxt writeResultTxt = new WriteResultTxt();
 
@@ -36,6 +36,10 @@ public class Main {
 
 
     public static void main(String[] args) throws IOException, InterruptedException, TelegramApiException {
+
+        boolean debugMode = false; // todo Флаг отладки
+        DebugMode.setDebugMode(debugMode);
+
 
         Main main = new Main(); // Вынести логику конекта в отдельный класс
 
